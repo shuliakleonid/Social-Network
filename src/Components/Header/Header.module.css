@@ -1,0 +1,8 @@
+.wrapper {
+    background-color: #d21212;
+    display: flex;
+}
+.logo{
+    width: 100px;
+}
+

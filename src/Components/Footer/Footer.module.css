@@ -1,0 +1,5 @@
+.wrapper {
+    display: flex;
+    justify-content:space-evenly;
+    background-color: #2c8d8a;
+}
