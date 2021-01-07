@@ -1,20 +1,21 @@
 import React from 'react';
-import './App.css';
-import {Header} from './Components/Header';
-import {Navigation} from './Components/Navigation';
-import {SectionMain} from './Components/SectionMain';
-import {Footer} from './Components/Footer';
+import classes from './App.module.css';
+import {Header} from './Components/Header/Header';
+import {Navigation} from './Components/Navigation/Navigation';
+import {SectionMain} from './Components/Profile/SectionMain';
+import {Footer} from './Components/Footer/Footer';
 
 
 function App() {
     return (
-        <div className='app__wrapper'>
+        <div className={classes.wrapper}>
             <Header/>
-            <main className='main__wrapper'>
-                <Navigation />
-                <SectionMain />
+            <main className={classes.main}>
+                <Navigation/>
+                <SectionMain title='Section' />
             </main>
-            <Footer />
+            <Footer/>
+            {/*<img src='./images.png'/>*/}
         </div>
     );
 }

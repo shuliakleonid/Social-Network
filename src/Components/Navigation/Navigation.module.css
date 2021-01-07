@@ -1,0 +1,10 @@
+.wrapper {
+    background-color: #2c32ae;
+    text-decoration: none;
+}
+.item {
+    list-style-type: none;
+}
+.active{
+    color:white;
+}
