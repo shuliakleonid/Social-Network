@@ -1,0 +1,11 @@
+.dialogs{
+    display: flex;
+}
+
+.itemList{
+    background-color: #4e5b85;
+    padding: 20px;
+}
+.messagesList{
+padding: 20px;
+}
