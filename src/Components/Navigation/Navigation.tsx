@@ -1,17 +1,28 @@
 import React from 'react';
-import classes from './Navigation.module.css'
+import {NavLink} from 'react-router-dom';
+import style from './Navigation.module.css'
 
 
 export function Navigation() {
-    return (
-        <nav className={classes.wrapper}>
-            <ul className={classes.list}>
-                <li className={`${classes.item}${classes.active}`}>Profile</li>
-                <li className={classes.item}>Messages</li>
-                <li className={classes.item}>News</li>
-                <li className={classes.item}>Music</li>
-                <li className={classes.item}>Settings</li>
-            </ul>
-        </nav>
-    );
+  return (
+      <nav className={style.wrapper}>
+        <ul className={style.list}>
+          <li className={style.item}>
+            <NavLink activeClassName={style.active} to='/profile'>Profile</NavLink>
+          </li>
+          <li className={style.item}>
+            <NavLink activeClassName={style.active} to='/dialogs'>Messages</NavLink>
+          </li>
+          <li className={style.item}>
+            <NavLink activeClassName={style.active} to='/news'>News</NavLink>
+          </li>
+          <li className={style.item}>
+            <NavLink activeClassName={style.active} to='/music'>Music</NavLink>
+          </li>
+          <li className={style.item}>
+            <NavLink activeClassName={style.active} to='/settings'>Settings</NavLink>
+          </li>
+        </ul>
+      </nav>
+  );
 }

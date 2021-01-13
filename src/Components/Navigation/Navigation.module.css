@@ -1,9 +1,13 @@
 .wrapper {
-    background-color: #2c32ae;
+    background-color: #1fdb4e;
     text-decoration: none;
 }
-.item {
-    list-style-type: none;
+.item a{
+    color: #ffffff;
+    text-decoration: none;
+}
+a.active{
+    color: #c1af35;
 }
 .active{
     color:white;
