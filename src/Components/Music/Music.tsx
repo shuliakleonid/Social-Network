@@ -1,9 +1,10 @@
 import React from 'react';
 
-export function Music() {
+const  Music=()=> {
   return (
       <div>
         Music
       </div>
   )
 }
+export default Music;

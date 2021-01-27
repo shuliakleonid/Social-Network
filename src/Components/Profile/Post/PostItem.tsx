@@ -2,19 +2,19 @@ import style from './PostItem.module.css';
 import React from 'react';
 import sun from '../../../assets/icons/sun.png'
 
-type PostType={
-  message:string
+type PostType = {
+  message: string
+  like: number
 }
 
-export function PostItem(props:PostType) {
+const PostItem = (props: PostType) => {
   return (
       <div className={style.item}>
-        <img  src={ sun
-          // 'D:/IT_incubator/Social_Network/my-app/src/assets/icons/sun.png'
-        } />
-
+        <img src={sun} alt='Profile'/>
         <p>{props.message}</p>
+        <p>{props.like}</p>
       </div>
   )
-
 }
+export default PostItem;
+

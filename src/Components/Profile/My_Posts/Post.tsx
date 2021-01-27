@@ -1,17 +1,19 @@
 import React from 'react';
-import style from './Post.module.css'
-import {PostItem} from '../Post/PostItem';
+import PostItem from '../Post/PostItem';
 
 type TypeProps = {
-    message: string
+  message: string
+  like: number
+  id:number
 }
 
-export function Posts(props:TypeProps) {
-    return (
+const Posts = (props: TypeProps) => {
+  return (
 
-        <div>
-          <PostItem message={props.message}/>
-        </div>
+      <div>
+        <PostItem message={props.message} like={props.like} key={props.id}/>
+      </div>
 
-    )
+  )
 }
+export default Posts;

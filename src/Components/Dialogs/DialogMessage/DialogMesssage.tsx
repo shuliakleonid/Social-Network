@@ -1,26 +1,22 @@
 import style from '../Dialogs.module.css';
 import React from 'react';
+import {PostType} from '../../../types/entities';
 
-
-type DialogItemType = {
-  id: number
-  name: string
-  message: string
+type PropsType={
+  messages: Array<PostType>
 }
 
-type DialogType = {
-  value: Array<DialogItemType>
-}
+ const DialogItemMessage = (props:PropsType) => {
 
-export const DialogItemMessage = (props: DialogType) => {
   return (
       <ul className={style.list}>
         {
-          props.value.map((t) => <li>
-                <li>{t.message}</li>
+          props.messages.map((t) => <li key={t.id}>
+                {t.message}
               </li>
           )
         }
       </ul>
   )
 }
+export default DialogItemMessage;
