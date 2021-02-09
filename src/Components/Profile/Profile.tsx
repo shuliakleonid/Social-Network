@@ -1,28 +1,26 @@
 import React from 'react';
 import style from './SectionMain.module.css';
 import Posts from './My_Posts/Post';
-import {PostType} from '../../types/entities';
-import {ActionType} from '../../redux/state';
+import {ActionType, ProfilePagesType} from '../../types/entities';
+import {addPostActionCreator, updateNewPostTextActionCreator} from '../../redux/state';
 
 
 type PropsType = {
-  profilePage: {
-    posts: Array<PostType>,
-    newPostText: string
-  }
+  profilePage: ProfilePagesType;
   dispatch: (action: ActionType) => void
 }
+
 
 const Profile = (props: PropsType) => {
   const addNewPostElement = React.createRef<HTMLTextAreaElement>();
 
 
   const buttonAddPost = () => {
-    props.dispatch({type: 'ADD-POST'})
+    props.dispatch(addPostActionCreator())
   }
   const onPostsChange = () => {
     if (addNewPostElement.current) {
-      props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: addNewPostElement.current.value})
+      props.dispatch(updateNewPostTextActionCreator(addNewPostElement.current.value))
     }
   }
 

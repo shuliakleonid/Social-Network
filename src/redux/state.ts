@@ -1,6 +1,8 @@
-import {PostType} from '../types/entities';
+import {PostType, StoreType} from '../types/entities';
 
-const store = {
+export const ADD_POST = 'ADD_POST'
+export const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT'
+const store: StoreType = {
   _state: {
     profilePage: {
       posts: [
@@ -16,17 +18,11 @@ const store = {
     dialogPage: {},
     sidebar: {}
   },
-  _callSubscriber(i:any) {
+  _callSubscriber(i) {
     console.log('State was changed')
   },
-  getState (){
-    return this._state;
-  },
-  subscribe(observer: any) {
-    this._callSubscriber = observer  //наблюдатель   патерн (AdventListener)
-  },
   _addPost() {
-    const newPost:PostType = {
+    const newPost: PostType = {
       id: Date.now(),
       name: 'Anonim',
       message: this._state.profilePage.newPostText,
@@ -36,30 +32,29 @@ const store = {
     this._state.profilePage.newPostText = '';
     this._callSubscriber(this._state)
   },
-  _updateNewPostText(newText: string) {
+  _updateNewPostText(newText) {
     this._state.profilePage.newPostText = newText;
     this._callSubscriber(this._state)
   },
-  dispatch(action: ActionType ){
-    if (action.type === 'ADD-POST') {
+  getState() {
+    return this._state;
+  },
+  subscribe(observer) {
+    this._callSubscriber = observer  //наблюдатель   патерн (AdventListener)
+  },
+  dispatch(action) {
+    if (action.type === ADD_POST) {
       this._addPost()
-    } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+    } else if (action.type === UPDATE_NEW_POST_TEXT) {
       this._updateNewPostText(action.newText)
     }
   }
 }
 
-type UpdateNewPostTextActionType = {
-  type: 'UPDATE-NEW-POST-TEXT'
-  newText: string
-}
-
-type AddPostActionType = {
-  type: 'ADD-POST'
-}
-
-export type ActionType = UpdateNewPostTextActionType | AddPostActionType
-
+export const addPostActionCreator = () => ({type: ADD_POST}) as const
+export const updateNewPostTextActionCreator = (newText: string) => (
+    {type: UPDATE_NEW_POST_TEXT, newText: newText}
+) as const //воспринимать объект как константу в TS
 
 export default store;
 //@ts-ignore

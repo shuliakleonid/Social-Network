@@ -9,11 +9,10 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import News from './Components/News/News';
 import Music from './Components/Music/Music';
 import Settings from './Components/Settings/Settings';
-import {PostsType} from './types/entities';
-import {ActionType} from './redux/state';
+import {ActionType, StateType} from './types/entities';
 
 type PropsType = {
-  state: PostsType
+  state: StateType
   dispatch: (action: ActionType) => void
 }
 
