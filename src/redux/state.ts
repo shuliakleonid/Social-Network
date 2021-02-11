@@ -1,9 +1,7 @@
-import {MessagesType, PostType, StoreType} from '../types/entities';
+import {StoreType} from '../types/entities';
+import {profileReducer} from './profile-reducer';
+import {dialogsReducer} from './dialogs-reducer';
 
-export const ADD_POST = 'ADD_POST'
-export const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT'
-export const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY'
-export const SEND_MESSAGE = 'SEND_MESSAGE'
 const store: StoreType = {
   _state: {
     profilePage: {
@@ -41,25 +39,25 @@ const store: StoreType = {
   _callSubscriber(i) {
     console.log('State was changed')
   },
-  _addPost() {
-    const newPost: PostType = {
-      id: Date.now(),
-      name: 'Anonim',
-      message: this._state.profilePage.newPostText,
-      likesCount: 0
-    };
-    this._state.profilePage.posts.push(newPost);
-    this._state.profilePage.newPostText = '';
-    this._callSubscriber(this._state)
-  },
-  _updateNewPostText(newText) {
-    this._state.profilePage.newPostText = newText;
-    this._callSubscriber(this._state)
-  },
-  _updateNewMessageText(newText) {
-    this._state.dialogsPages.newMessageText = newText;
-    this._callSubscriber(this._state)
-  },
+  // _addPost() {
+  //   const newPost: PostType = {
+  //     id: Date.now(),
+  //     name: 'Anonim',
+  //     message: this._state.profilePage.newPostText,
+  //     likesCount: 0
+  //   };
+  //   this._state.profilePage.posts.push(newPost);
+  //   this._state.profilePage.newPostText = '';
+  //   this._callSubscriber(this._state)
+  // },
+  // _updateNewPostText(newText) {
+  //   this._state.profilePage.newPostText = newText;
+  //   this._callSubscriber(this._state)
+  // },
+  // _updateNewMessageText(newText) {
+  //   this._state.dialogsPages.newMessageText = newText;
+  //   this._callSubscriber(this._state)
+  // },
   getState() {
     return this._state;
   },
@@ -67,33 +65,26 @@ const store: StoreType = {
     this._callSubscriber = observer  //наблюдатель   патерн (AdventListener)
   },
   dispatch(action) {
-    if (action.type === ADD_POST) {
-      this._addPost()
-    } else if (action.type === UPDATE_NEW_POST_TEXT) {
-      this._updateNewPostText(action.newText)
-    } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-      this._updateNewMessageText(action.newText)
-    } else if (action.type === SEND_MESSAGE) {
-      let newMessage: MessagesType = {
-        id: Date.now(),
-        message: this._state.dialogsPages.newMessageText
-      }
-      this._state.dialogsPages.messages.push(newMessage);
-      this._state.dialogsPages.newMessageText = '';
-      this._callSubscriber(this._state)
-    }
+    this._state.profilePage = profileReducer(this._state.profilePage, action)
+    this._state.dialogsPages = dialogsReducer(this._state.dialogsPages, action)
+    this._callSubscriber(this._state)
+    // if (action.type === ADD_POST) {
+    //   this._addPost()
+    // } else if (action.type === UPDATE_NEW_POST_TEXT) {
+    //   this._updateNewPostText(action.newText)
+    // } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
+    //   this._updateNewMessageText(action.newText)
+    // } else if (action.type === SEND_MESSAGE) {
+    //   let newMessage: MessagesType = {
+    //     id: Date.now(),
+    //     message: this._state.dialogsPages.newMessageText
+    //   }
+    //   this._state.dialogsPages.messages.push(newMessage);
+    //   this._state.dialogsPages.newMessageText = '';
+    //   this._callSubscriber(this._state)
+    // }
   }
 }
-
-export const addPostActionCreator = () => ({type: ADD_POST}) as const
-export const updateNewPostTextActionCreator = (newText: string) => (
-    {type: UPDATE_NEW_POST_TEXT, newText: newText}
-) as const //воспринимать объект как константу в TS
-export const addMessageActionCreator = () => ({type: SEND_MESSAGE}) as const
-export const updateNewMessageTextActionCreator = (newText: string) => (
-    {type: UPDATE_NEW_MESSAGE_BODY, newText: newText}
-) as const //воспринимать объект как константу в TS
-
 
 export default store;
 //@ts-ignore

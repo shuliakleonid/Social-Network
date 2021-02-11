@@ -7,13 +7,13 @@ import {
 
 export type StoreType = {
   _state: StateType
-  _addPost: () => void
+  // _addPost: () => void
   getState: () => StateType
   subscribe: (observer: (state: StateType) => void) => void
   _callSubscriber: (i: StateType) => void
   dispatch: (action: ActionType) => void
-  _updateNewPostText: (newText: string) => void
-  _updateNewMessageText: (newText: string) => void
+  // _updateNewPostText: (newText: string) => void
+  // _updateNewMessageText: (newText: string) => void
 }
 
 export type PostType = {
