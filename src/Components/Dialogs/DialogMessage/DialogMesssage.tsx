@@ -1,12 +1,12 @@
 import style from '../Dialogs.module.css';
 import React from 'react';
-import {PostType} from '../../../types/entities';
+import {MessagesType} from '../../../types/entities';
 
-type PropsType={
-  messages: Array<PostType>
+type PropsType = {
+  messages: Array<MessagesType>
 }
 
- const DialogItemMessage = (props:PropsType) => {
+const DialogItemMessage = (props: PropsType) => {
 
   return (
       <ul className={style.list}>

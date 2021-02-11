@@ -1,4 +1,9 @@
-import {addPostActionCreator, updateNewPostTextActionCreator} from '../redux/state'
+import {
+  addMessageActionCreator,
+  addPostActionCreator,
+  updateNewMessageTextActionCreator,
+  updateNewPostTextActionCreator
+} from '../redux/state'
 
 export type StoreType = {
   _state: StateType
@@ -8,6 +13,7 @@ export type StoreType = {
   _callSubscriber: (i: StateType) => void
   dispatch: (action: ActionType) => void
   _updateNewPostText: (newText: string) => void
+  _updateNewMessageText: (newText: string) => void
 }
 
 export type PostType = {
@@ -24,10 +30,22 @@ export type ProfilePagesType = {
 
 export type StateType = {
   profilePage: ProfilePagesType
-  dialogPage: any
+  dialogsPages: DialogsPageType
   sidebar: any
 }
-
+export type DialogsPageType = {
+  dialogs: Array<DialogsType>
+  messages: Array<MessagesType>
+  newMessageText: string
+}
+export type MessagesType = {
+  id: number
+  message: string
+}
+export type DialogsType = {
+  id: number
+  name: string
+}
 // export type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextActionCreator>
 //     {
 //   type: 'UPDATE_NEW_POST_TEXT'
@@ -39,5 +57,9 @@ export type StateType = {
 //   type: 'ADD_POST'
 // }
 
-export type ActionType = ReturnType<typeof updateNewPostTextActionCreator> | ReturnType<typeof addPostActionCreator>
+export type ActionType =
+    ReturnType<typeof updateNewPostTextActionCreator>
+    | ReturnType<typeof addPostActionCreator>
+    | ReturnType<typeof updateNewMessageTextActionCreator>
+    | ReturnType<typeof addMessageActionCreator>
 

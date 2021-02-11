@@ -1,23 +1,18 @@
 import style from '../Dialogs.module.css';
 import {NavLink} from 'react-router-dom';
 import React from 'react';
+import {DialogsType} from '../../../types/entities';
 
-type DialogItemType = {
-  id: number
-  name: string
-  message: string
+type DialogItemPropsType = {
+  name:Array<DialogsType>
 }
 
-type DialogType = {
-  messages: Array<DialogItemType>
-}
-
-const DialogItem = (props: DialogType) => {
+const DialogItem = (props: DialogItemPropsType) => {
 
   return (
       <ul className={style.list}>
         {
-          props.messages.map((t) => <li key={t.id}>
+          props.name.map((t) => <li key={t.id}>
                 <NavLink to={`/dialogs/${t.id}`} >{t.name}</NavLink>
               </li>
           )

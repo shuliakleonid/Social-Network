@@ -8,7 +8,7 @@ import {StateType} from './types/entities';
 let rerenderEntireTree = (state: StateType) => {
   ReactDOM.render(
       <React.StrictMode>
-        <App state={state} dispatch={store.dispatch.bind(store)} />
+        <App state={state} dispatch={store.dispatch.bind(store)}  />
       </ React.StrictMode>,
       document.getElementById('root')
   )
