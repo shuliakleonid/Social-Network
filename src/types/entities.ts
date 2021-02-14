@@ -1,9 +1,5 @@
-import {
-  addMessageActionCreator,
-  addPostActionCreator,
-  updateNewMessageTextActionCreator,
-  updateNewPostTextActionCreator
-} from '../redux/state'
+import {addMessageActionCreator, updateNewMessageTextActionCreator} from '../redux/dialogs-reducer';
+import {addPostActionCreator, updateNewPostTextActionCreator} from '../redux/profile-reducer';
 
 export type StoreType = {
   _state: StateType

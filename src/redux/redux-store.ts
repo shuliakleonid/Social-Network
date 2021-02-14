@@ -3,11 +3,11 @@ import {profileReducer} from './profile-reducer';
 import {dialogsReducer} from './dialogs-reducer';
 import {sidebarReducer} from './sidebar-reducer';
 
-let reducers = combineReducers({
-  profileReducer:profileReducer,
-  dialogsReducer:dialogsReducer,
-  sidebarReducer:sidebarReducer
+const reducers = combineReducers({
+  profilePage:profileReducer,
+  dialogsPages:dialogsReducer,
+  sidebar:sidebarReducer
 });
 
 
-export let store = createStore(reducers);
+export const store = createStore(reducers);

@@ -2,7 +2,6 @@ import React from 'react';
 import style from './App.module.css';
 import Header from './Components/Header/Header';
 import Navigation from './Components/Navigation/Navigation';
-import Profile from './Components/Profile/Profile';
 import Footer from './Components/Footer/Footer';
 import Dialogs from './Components/Dialogs/Dialogs';
 import {BrowserRouter, Route} from 'react-router-dom';
@@ -10,13 +9,20 @@ import News from './Components/News/News';
 import Music from './Components/Music/Music';
 import Settings from './Components/Settings/Settings';
 import {ActionType, StateType} from './types/entities';
+import {ProfileContainer} from '../src/Components/Profile/ProfileConteiner'
+import DialogContainer from './Components/Dialogs/DialogsContainer';
 
 type PropsType = {
-  state: StateType
+  store: StateType
   dispatch: (action: ActionType) => void
 }
 
-const App: React.FC<PropsType> = ({state, dispatch}) => {
+const App: React.FC<PropsType> = ({
+                                    store,
+                                    dispatch
+}) => {
+  console.log(dispatch)
+  debugger
   return (
       <BrowserRouter>
         <div className={style.wrapper}>
@@ -25,15 +31,15 @@ const App: React.FC<PropsType> = ({state, dispatch}) => {
             <Navigation/>
             <div className={style.content}>
               <Route path='/profile'
-                     render={() => <Profile
-                         profilePage={state.profilePage}
+                     render={() => <ProfileContainer
+                         store={store}
                          dispatch={dispatch}
 
                      />}/>
               <Route path='/dialogs'
-                     render={() => <Dialogs
+                     render={() => <DialogContainer
                          dispatch={dispatch}
-                         dialogsPages={state.dialogsPages}/>}/>
+                         dialogsPages={store.dialogsPages}/>}/>
               <Route path='/news' render={() => <News/>}/>
               <Route path='/music' render={() => <Music/>}/>
               <Route path='/settings' render={() => <Settings/>}/>

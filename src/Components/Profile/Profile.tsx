@@ -1,27 +1,25 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import style from './SectionMain.module.css';
 import Posts from './My_Posts/Post';
-import {ActionType, ProfilePagesType} from '../../types/entities';
-import {addPostActionCreator, updateNewPostTextActionCreator} from '../../redux/state';
+import {ProfilePagesType} from '../../types/entities';
 
 
 type PropsType = {
+  buttonAddPost: () => void
   profilePage: ProfilePagesType;
-  dispatch: (action: ActionType) => void
+  updateNewPostText: (text: string) => void
 }
 
 
 const Profile = (props: PropsType) => {
-  const addNewPostElement = React.createRef<HTMLTextAreaElement>();
-
-
-  const buttonAddPost = () => {
-    props.dispatch(addPostActionCreator())
+  const onAddPost = () => {
+    props.buttonAddPost()
   }
-  const onPostsChange = () => {
-    if (addNewPostElement.current) {
-      props.dispatch(updateNewPostTextActionCreator(addNewPostElement.current.value))
+  const onPostsChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    if (e.currentTarget.value) {
+      props.updateNewPostText(e.currentTarget.value)
     }
+    // props.dispatch(updateNewPostTextActionCreator(addNewPostElement.current.value))
   }
 
   let postsMessage = props.profilePage.posts.map((i) => {
@@ -32,15 +30,13 @@ const Profile = (props: PropsType) => {
         id={i.id}
     />
   })
-
   return (
       <section className={style.wrapper}>
         <textarea
             onChange={onPostsChange}
-            ref={addNewPostElement}
             value={props.profilePage.newPostText}
             placeholder='Add message'/>
-        <button onClick={buttonAddPost}>Add post</button>
+        <button onClick={onAddPost}>Add post</button>
         {postsMessage}
       </section>
   )

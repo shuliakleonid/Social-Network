@@ -1,8 +1,7 @@
 import {StoreType} from '../types/entities';
 import {profileReducer} from './profile-reducer';
 import {dialogsReducer} from './dialogs-reducer';
-
-const store: StoreType = {
+ const store: StoreType = {
   _state: {
     profilePage: {
       posts: [
