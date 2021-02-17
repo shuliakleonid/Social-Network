@@ -18,7 +18,7 @@ const Dialogs = (props: PropsType) => {
   const changeValueMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
     props.changeValueMessage(e.currentTarget.value)
   }
-
+debugger
   return (
       <div className={style.dialogs}>
         <div className={style.itemList}>
