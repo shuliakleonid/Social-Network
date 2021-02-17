@@ -17,12 +17,7 @@ type PropsType = {
   dispatch: (action: ActionType) => void
 }
 
-const App: React.FC<PropsType> = ({
-                                    store,
-                                    dispatch
-}) => {
-  console.log(dispatch)
-  debugger
+const App = () => {
   return (
       <BrowserRouter>
         <div className={style.wrapper}>
@@ -32,14 +27,14 @@ const App: React.FC<PropsType> = ({
             <div className={style.content}>
               <Route path='/profile'
                      render={() => <ProfileContainer
-                         store={store}
-                         dispatch={dispatch}
-
+                         // store={store}
+                         // dispatch={dispatch}
                      />}/>
               <Route path='/dialogs'
                      render={() => <DialogContainer
-                         dispatch={dispatch}
-                         dialogsPages={store.dialogsPages}/>}/>
+                         // dispatch={dispatch}
+                         // dialogsPages={store.dialogsPages}
+                     />}/>
               <Route path='/news' render={() => <News/>}/>
               <Route path='/music' render={() => <Music/>}/>
               <Route path='/settings' render={() => <Settings/>}/>
