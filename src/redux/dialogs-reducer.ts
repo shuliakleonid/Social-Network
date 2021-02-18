@@ -1,4 +1,4 @@
-import {ActionType, DialogsPageType, MessagesType, ProfilePagesType} from '../types/entities';
+import {ActionType, DialogsPageType, MessagesType} from '../types/entities';
 import {SEND_MESSAGE, UPDATE_NEW_MESSAGE_BODY} from '../constant';
 
 const initialState:DialogsPageType = {
@@ -23,17 +23,22 @@ const initialState:DialogsPageType = {
 
 export const dialogsReducer = (state=initialState, action: ActionType): DialogsPageType => {
   switch (action.type) {
-    case SEND_MESSAGE:
+    case SEND_MESSAGE: {
       let newMessage: MessagesType = {
         id: Date.now(),
         message: state.newMessageText
       }
-      state.messages.push(newMessage);
-      state.newMessageText = '';
-      return state;
-    case UPDATE_NEW_MESSAGE_BODY:
-      state.newMessageText = action.newText;
-      return state;
+      const stateCopy = {...state}
+      stateCopy.messages = [...state.messages]
+      stateCopy.messages.push(newMessage);
+      stateCopy.newMessageText = '';
+      return stateCopy;
+    }
+    case UPDATE_NEW_MESSAGE_BODY: {
+      const stateCopy = {...state}
+      stateCopy.newMessageText = action.newText;
+      return stateCopy;
+    }
     default:
       return state;
   }

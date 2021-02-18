@@ -1,8 +1,7 @@
 import React from 'react';
-import {ActionType, StateType} from '../../types/entities';
+import {StateType} from '../../types/entities';
 import {addPostActionCreator, updateNewPostTextActionCreator} from '../../redux/profile-reducer';
 import {connect} from 'react-redux';
-import Dialogs from '../Dialogs/Dialogs';
 import Profile from './Profile';
 import {Action, Dispatch} from 'redux';
 

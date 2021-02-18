@@ -6,7 +6,7 @@ import App from './App';
 import {StateType} from './types/entities';
 import {Provider} from 'react-redux'
 
-let rerenderEntireTree = (state: StateType) => {
+// let rerenderEntireTree = (state: StateType) => {
 
   ReactDOM.render(
       <React.StrictMode>
@@ -20,10 +20,10 @@ let rerenderEntireTree = (state: StateType) => {
       document.getElementById('root')
   )
   ;
-}
-rerenderEntireTree(store.getState());
-store.subscribe(() => {
-  const newStore = store.getState()
-  rerenderEntireTree(newStore)
-});
+// }
+// rerenderEntireTree(store.getState());
+// store.subscribe(() => {
+//   const newStore = store.getState()
+//   rerenderEntireTree(newStore)
+// });
 
