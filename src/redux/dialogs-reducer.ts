@@ -1,7 +1,7 @@
 import {ActionType, DialogsPageType, MessagesType} from '../types/entities';
 import {SEND_MESSAGE, UPDATE_NEW_MESSAGE_BODY} from '../constant';
 
-const initialState:DialogsPageType = {
+const initialState: DialogsPageType = {
   dialogs: [
     {id: 1, name: 'Leonid'},
     {id: 2, name: 'Sveta'},
@@ -21,24 +21,24 @@ const initialState:DialogsPageType = {
   newMessageText: '',
 }
 
-export const dialogsReducer = (state=initialState, action: ActionType): DialogsPageType => {
+export const dialogsReducer = (state = initialState, action: ActionType): DialogsPageType => {
+  // let stateCopy:DialogsPageType = {...state}
   switch (action.type) {
-    case SEND_MESSAGE: {
-      let newMessage: MessagesType = {
+    case SEND_MESSAGE:
+      const newMessage: MessagesType = {
         id: Date.now(),
         message: state.newMessageText
       }
-      const stateCopy = {...state}
-      stateCopy.messages = [...state.messages]
-      stateCopy.messages.push(newMessage);
-      stateCopy.newMessageText = '';
-      return stateCopy;
-    }
-    case UPDATE_NEW_MESSAGE_BODY: {
-      const stateCopy = {...state}
-      stateCopy.newMessageText = action.newText;
-      return stateCopy;
-    }
+      // const stateCopy = {...state}
+      // stateCopy.messages = [...state.messages]
+      return {...state, messages: [...state.messages, newMessage], newMessageText: ''}
+      // stateCopy.messages.push();
+      // stateCopy.newMessageText = '';
+      // return stateCopy;
+    case UPDATE_NEW_MESSAGE_BODY:
+      return {...state, newMessageText: action.newText}
+      // stateCopy.newMessageText = action.newText;
+      // return stateCopy;
     default:
       return state;
   }
