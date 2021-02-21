@@ -1,5 +1,6 @@
 import {addMessageActionCreator, updateNewMessageTextActionCreator} from '../redux/dialogs-reducer';
 import {addPostActionCreator, updateNewPostTextActionCreator} from '../redux/profile-reducer';
+import {followAC, setUsersAC, unfollowAC} from '../redux/news-reducer';
 
 export type StoreType = {
   _state: StateType
@@ -12,25 +13,16 @@ export type StoreType = {
   // _updateNewMessageText: (newText: string) => void
 }
 
-export type PostType = {
-  id: number
-  name: string
-  message: string
-  likesCount: number
-}
 
 export type ProfilePagesType = {
   posts: Array<PostType>
   newPostText: string
 }
-
-export type MessagesType = {
-  id: number
-  message: string
-}
-export type DialogsType = {
+export type PostType = {
   id: number
   name: string
+  message: string
+  likesCount: number
 }
 export type StateType = {
   profilePage: ProfilePagesType
@@ -41,6 +33,15 @@ export type DialogsPageType = {
   dialogs: Array<DialogsType>
   messages: Array<MessagesType>
   newMessageText: string
+}
+
+export type MessagesType = {
+  id: number
+  message: string
+}
+export type DialogsType = {
+  id: number
+  name: string
 }
 // export type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextActionCreator>
 //     {
@@ -58,4 +59,7 @@ export type ActionType =
     | ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof updateNewMessageTextActionCreator>
     | ReturnType<typeof addMessageActionCreator>
+    | ReturnType<typeof setUsersAC>
+    | ReturnType<typeof followAC>
+    | ReturnType<typeof unfollowAC>
 

@@ -3,19 +3,18 @@ import style from './App.module.css';
 import Header from './Components/Header/Header';
 import Navigation from './Components/Navigation/Navigation';
 import Footer from './Components/Footer/Footer';
-import Dialogs from './Components/Dialogs/Dialogs';
 import {BrowserRouter, Route} from 'react-router-dom';
 import News from './Components/News/News';
 import Music from './Components/Music/Music';
 import Settings from './Components/Settings/Settings';
-import {ActionType, StateType} from './types/entities';
 import {ProfileContainer} from '../src/Components/Profile/ProfileConteiner'
 import DialogContainer from './Components/Dialogs/DialogsContainer';
+import UsersContainer from './Components/Users/UsersContainer';
 
-type PropsType = {
-  store: StateType
-  dispatch: (action: ActionType) => void
-}
+// type PropsType = {
+//   store: StateType
+//   dispatch: (action: ActionType) => void
+// }
 
 const App = () => {
   return (
@@ -35,6 +34,7 @@ const App = () => {
                          // dispatch={dispatch}
                          // dialogsPages={store.dialogsPages}
                      />}/>
+              <Route path='/users' render={() => <UsersContainer/>}/>
               <Route path='/news' render={() => <News/>}/>
               <Route path='/music' render={() => <Music/>}/>
               <Route path='/settings' render={() => <Settings/>}/>

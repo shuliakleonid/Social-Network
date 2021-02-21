@@ -5,10 +5,10 @@ import Dialogs from './Dialogs';
 import {connect} from 'react-redux';
 import {Action, Dispatch} from 'redux';
 
-type PropsType = {
-  dialogsPages: DialogsPageType
-  dispatch: (action: ActionType) => void
-}
+// type PropsType = {
+//   dialogsPages: DialogsPageType
+//   dispatch: (action: ActionType) => void
+// }
 /*
 
 const DialogContainer = () => {
