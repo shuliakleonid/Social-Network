@@ -21,18 +21,9 @@ export const profileReducer = (state = initialState, action: ActionType): Profil
         message: state.newPostText,
         likesCount: Math.floor(Math.random()*10) * Math.floor(Math.random()*10)
       };
-      return {...state, posts: [...state.posts, newPost], newPostText: ''}
-      // stateCopy.posts = [...state.posts]
-
-      // stateCopy.posts.push(newPost);
-      // stateCopy.newPostText = '';
-      // return stateCopy
-    }
+      return {...state, posts: [...state.posts, newPost], newPostText: ''}}
     case UPDATE_NEW_POST_TEXT:
       return {...state, newPostText: action.newText}
-      // stateCopy.newPostText = action.newText;
-      // return stateCopy
-
     default:
       return state
 

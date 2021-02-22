@@ -1,6 +1,6 @@
 import {addMessageActionCreator, updateNewMessageTextActionCreator} from '../redux/dialogs-reducer';
 import {addPostActionCreator, updateNewPostTextActionCreator} from '../redux/profile-reducer';
-import {followAC, setUsersAC, unfollowAC} from '../redux/news-reducer';
+import {followAC, setUsersAC, unfollowAC} from '../redux/users-reducer';
 
 export type StoreType = {
   _state: StateType

@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {followAC, InitialStateType, setUsersAC, unfollowAC, UserType} from '../../redux/news-reducer';
+import {followAC, InitialStateType, setUsersAC, unfollowAC, UserType} from '../../redux/users-reducer';
 import Users from './Users';
 import {Action, Dispatch} from 'redux';
 
@@ -9,7 +9,6 @@ type StateType={
 }
 
 const mapStateToProps = (state: StateType) => {//проинимает глобальный стейт целиком
- debugger
   return {
     users: state.usersPages.users
   }
