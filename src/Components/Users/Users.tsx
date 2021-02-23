@@ -11,9 +11,9 @@ type UsersPropsType = {
   setUsers: (users: Array<UserType>) => void
 }
 export type UsersApiPropsType = {
-  followed: boolean
   id: number
   name: string
+  followed: boolean
   photos: {
     large: any
     small: any

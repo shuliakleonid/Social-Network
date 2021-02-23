@@ -1,6 +1,8 @@
 import {ActionType} from '../types/entities';
 import {FOLLOW, SET_USERS, UNFOLLOW} from '../constant';
 import user from '../assets/icons/user.png'
+import {UsersApiPropsType} from '../Components/Users/Users';
+
 type LocationType = {
   city: string
   country: string
@@ -14,58 +16,76 @@ export type UserType = {
   location: LocationType
 }
 export type InitialStateType = {
-  users: Array<UserType>
+  users: Array<UsersApiPropsType>
 }
 
 const initialState: InitialStateType = {
   users: [
     {
       id: 1,
-      photoUrl: user,
       followed: true,
       name: 'Dmitry',
+      photos: {
+        large: 'string',
+        small: 'string'
+      },
       status: 'I\'m looking for a job like now',
-      location: {city: 'Minsk', country: 'Belarus'}
+      uniqueUrlName: 'string'
     },
     {
       id: 2,
-      photoUrl: user,
       followed: true,
       name: 'Sveta',
       status: 'I am  so pretty',
-      location: {city: 'Moscow', country: 'Russia'}
+      photos: {
+        large: 'string',
+        small: 'string',
+      },
+      uniqueUrlName: 'string'
     },
     {
       id: 3,
-      photoUrl: user,
       followed: false,
       name: 'Sergei',
       status: 'I like football',
-      location: {city: 'Kiev', country: 'Ukraine'}
+      photos: {
+        large: 'string',
+        small: 'string',
+      },
+      uniqueUrlName: 'string'
     },
     {
       id: 4,
-      photoUrl: user,
       followed: false,
       name: 'Olia',
       status: 'I fill happy',
-      location: {city: 'Warshaw', country: 'Poland'}
+      photos: {
+        large: 'string',
+        small: 'string',
+      },
+      uniqueUrlName: 'string'
     },
     {
       id: 5,
-      photoUrl: user,
       followed: false,
       name: 'Zahar',
       status: 'Go with us on station',
-      location: {city: 'Berlin', country: 'Germani'}
+      photos: {
+        large: 'string',
+        small: 'string',
+      },
+      uniqueUrlName: 'string',
     },
     {
       id: 6,
-      photoUrl: user,
-       followed: true,
+      followed: true,
       name: 'Sasha',
       status: 'Hi, Dude',
-      location: {city: 'Paris', country: 'France'}
+      photos: {
+        large: 'string',
+        small: 'string',
+      },
+      uniqueUrlName: 'string',
     },
   ],
 }
@@ -85,7 +105,7 @@ export const usersReducer = (state = initialState, action: ActionType): InitialS
   }
 }
 
-export const setUsersAC = (users: Array<UserType>) => ({type: SET_USERS, users: users}) as const
+export const setUsersAC = (users: Array<UsersApiPropsType>) => ({type: SET_USERS, users: users}) as const
 export const followAC = (userID: number) => ({type: FOLLOW, userID: userID}) as const
 export const unfollowAC = (userID: number) => (
     {type: UNFOLLOW, userID: userID}

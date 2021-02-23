@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {followAC, InitialStateType, setUsersAC, unfollowAC, UserType} from '../../redux/users-reducer';
 import Users from './UsersClass';
 import {Action, Dispatch} from 'redux';
+import {UsersApiPropsType} from './Users';
 
 type StateType={
   usersPages:InitialStateType
@@ -22,7 +23,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => {//передает �
     unfollow: (userId:number) => {
       dispatch(unfollowAC(userId))
     },
-    setUsers: (users:Array<UserType>) => {
+    setUsers: (users:Array<UsersApiPropsType>) => {
       dispatch(setUsersAC(users))
     }
   }

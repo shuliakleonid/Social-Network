@@ -5,35 +5,34 @@ import axios from 'axios';
 import {UsersApiPropsType} from './Users';
 
 type UsersType = {
-  users: UsersApiPropsType[]
+  users: Array<UsersApiPropsType>
   follow: (id: number) => void
   unfollow: (id: number) => void
-  setUsers: (user: string) => void
+  setUsers: (user: Array<UsersApiPropsType>) => void
 }
 
 
 class Users extends React.Component<UsersType> {//конструктор и супер можно не писать оно происходит автоматически
+constructor(props:UsersType) {
+  super(props);
 
-  getUsers = () => {
-    if (this.props.users.length === 0) {
+
       axios.get('https://social-network.samuraijs.com/api/1.0/users')//делаем на сервер запрос о данных
           .then(response => {//делаем с данными что-то
             console.log(response.data.items)
             this.props.setUsers(response.data.items)
           })
-    }
+}
 
-
-  }
 
   render() {
     return (
         <div>
-          <button onClick={this.getUsers}>Get Users</button>
+          {/*<button onClick={this.getUsers}>Get Users</button>*/}
           {
             this.props.users.map(el => <div key={el.id}>
             <span>
-              <div><img src={user} className={style.photoUser}/></div>
+              <div><img alt='img' src={user} className={style.photoUser}/></div>
               <div>
                 {el.followed
                     ? <button onClick={() => {
