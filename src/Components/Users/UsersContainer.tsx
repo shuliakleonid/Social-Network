@@ -1,14 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {followAC, InitialStateType, setUsersAC, unfollowAC, UserType} from '../../redux/users-reducer';
-import Users from './Users';
+import Users from './UsersClass';
 import {Action, Dispatch} from 'redux';
 
 type StateType={
   usersPages:InitialStateType
 }
 
-const mapStateToProps = (state: StateType) => {//проинимает глобальный стейт целиком
+const mapStateToProps = (state: StateType) => {//принимает глобальный стэйт целиком
   return {
     users: state.usersPages.users
   }
@@ -28,7 +28,4 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => {//передает �
   }
 
 }
-
-
-const usersContainer = connect(mapStateToProps, mapDispatchToProps)(Users);
-export default usersContainer
+export default connect(mapStateToProps, mapDispatchToProps)(Users);
