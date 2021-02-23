@@ -24,14 +24,19 @@ type UsersApiPropsType = {
 
 const Users = (props: UsersPropsType) => {
   const [usersData, setUsersData] = useState(props.users)
-  useEffect(() => {//для выполнения одного запроса (без юзЭфекта будет бесконечный запрос)
+
+
+const getUsers=()=>{
+  // useEffect(() => {//для выполнения одного запроса (без юзЭфекта будет бесконечный запрос)
     axios.get('https://social-network.samuraijs.com/api/1.0/users')//делаем на сервер запрос о данных
         .then(response => {//делаем с данными что-то
           console.log(response.data.items)
           setUsersData(response.data.items)
         })
 
-  },[props])
+  // },[props])
+
+}
 
 
   const followButton = (id: number) => {
@@ -43,6 +48,7 @@ const Users = (props: UsersPropsType) => {
 
   return (
       <div>
+        <button onClick={getUsers}>Get Users</button>
         {
           usersData.map(el => <div key={el.id}>
             <span>
