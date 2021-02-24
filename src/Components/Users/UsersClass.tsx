@@ -13,10 +13,11 @@ type UsersType = {
 
 
 class Users extends React.Component<UsersType> {//конструктор и супер можно не писать оно происходит автоматически
-constructor(props:UsersType) {
-  super(props);
-
-
+// constructor(props:UsersType) {
+//   super(props);
+//
+// }
+componentDidMount() {
       axios.get('https://social-network.samuraijs.com/api/1.0/users')//делаем на сервер запрос о данных
           .then(response => {//делаем с данными что-то
             console.log(response.data.items)
