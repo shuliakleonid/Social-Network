@@ -1,6 +1,6 @@
 import {addMessageActionCreator, updateNewMessageTextActionCreator} from '../redux/dialogs-reducer';
 import {addPostActionCreator, updateNewPostTextActionCreator} from '../redux/profile-reducer';
-import {followAC, setUsersAC, unfollowAC} from '../redux/users-reducer';
+import {currentPageAC, followAC, setTotalUsersCountAC, setUsersAC, unfollowAC} from '../redux/users-reducer';
 
 export type StoreType = {
   _state: StateType
@@ -62,4 +62,6 @@ export type ActionType =
     | ReturnType<typeof setUsersAC>
     | ReturnType<typeof followAC>
     | ReturnType<typeof unfollowAC>
+    | ReturnType<typeof currentPageAC>
+    | ReturnType<typeof setTotalUsersCountAC>
 
