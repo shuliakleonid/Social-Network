@@ -2,6 +2,7 @@ import React, {FunctionComponent} from 'react';
 import style from './Users.module.css';
 import user from '../../assets/icons/user.png';
 import {UsersApiPropsType} from './UsersFunction';
+import {v1} from 'uuid';
 
 type UsersTypeProps = {
   users: Array<UsersApiPropsType>
@@ -24,7 +25,7 @@ const Users:FunctionComponent<UsersTypeProps>= (props) => {
       <div>
         <div>
           {
-            pages.map(el=><span onClick={()=>props.onPageChanged(el)} className={ props.currentPage === el ? style.pageNumber:''}>{el}--</span>)
+            pages.map(el=><span key={v1()} onClick={()=>props.onPageChanged(el)} className={ props.currentPage === el ? style.pageNumber:''}>{el}--</span>)
           }
         </div>
         {

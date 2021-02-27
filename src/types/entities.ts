@@ -1,6 +1,13 @@
 import {addMessageActionCreator, updateNewMessageTextActionCreator} from '../redux/dialogs-reducer';
 import {addPostActionCreator, updateNewPostTextActionCreator} from '../redux/profile-reducer';
-import {currentPageAC, followAC, setTotalUsersCountAC, setUsersAC, unfollowAC} from '../redux/users-reducer';
+import {
+  currentPageAC,
+  followAC,
+  setLoadingAC,
+  setTotalUsersCountAC,
+  setUsersAC,
+  unfollowAC
+} from '../redux/users-reducer';
 
 export type StoreType = {
   _state: StateType
@@ -64,6 +71,7 @@ export type ActionType =
     | ReturnType<typeof unfollowAC>
     | ReturnType<typeof currentPageAC>
     | ReturnType<typeof setTotalUsersCountAC>
+    | ReturnType<typeof setLoadingAC>
 
 export type UsersApiPropsType = {
   id: number
@@ -86,4 +94,6 @@ export type UsersType = {
   setUsers: (user: Array<UsersApiPropsType>) => void
   currentPageChoice:(page:number)=>void
   setTotalUsersCount:(count:number)=>void
+  isLoading:boolean
+  toggleIsLoading:(action:boolean)=>void
 }
