@@ -14,6 +14,7 @@ import axios from 'axios';
 import Users from './Users';
 import {UsersType} from '../../types/entities';
 import spin from '../../assets/icons/Spin.svg'
+import PreLoader from '../Common/PreLoader/PreLoader';
 
 type StateType = {
   usersPages: InitialStateType
@@ -51,7 +52,7 @@ class UsersClass extends React.Component<UsersType> {//конструктор и
 
   render() {
     return <>
-      {this.props.isLoading ? <img src={spin} alt='loading' />:null}
+      {this.props.isLoading ? <PreLoader />:null}
               <Users users={this.props.users }
                     currentPage={this.props.currentPage}
                     pageSize={this.props.pageSize}
