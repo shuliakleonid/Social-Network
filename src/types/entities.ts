@@ -1,12 +1,6 @@
 import {addMessageActionCreator, updateNewMessageTextActionCreator} from '../redux/dialogs-reducer';
 import {addPostActionCreator, updateNewPostTextActionCreator} from '../redux/profile-reducer';
-import {
-  currentPageAC,
-  followAC,
-  setLoadingAC,
-  setTotalUsersCountAC,
-  setUsersAC,
-  unfollowAC
+import {  currentPageChoice, follow, setTotalUsersCount, setUsers, toggleIsLoading, unfollow
 } from '../redux/users-reducer';
 
 export type StoreType = {
@@ -66,12 +60,12 @@ export type ActionType =
     | ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof updateNewMessageTextActionCreator>
     | ReturnType<typeof addMessageActionCreator>
-    | ReturnType<typeof setUsersAC>
-    | ReturnType<typeof followAC>
-    | ReturnType<typeof unfollowAC>
-    | ReturnType<typeof currentPageAC>
-    | ReturnType<typeof setTotalUsersCountAC>
-    | ReturnType<typeof setLoadingAC>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof follow>
+    | ReturnType<typeof unfollow>
+    | ReturnType<typeof currentPageChoice>
+    | ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof toggleIsLoading>
 
 export type UsersApiPropsType = {
   id: number

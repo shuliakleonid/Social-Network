@@ -118,10 +118,10 @@ export const usersReducer = (state = initialState, action: ActionType): InitialS
   }
 }
 
-export const followAC = (userID: number) => ({type: FOLLOW, userID: userID}) as const
-export const currentPageAC = (page: number) => ({type: SET_CURRENT_PAGE, page: page}) as const
-export const unfollowAC = (userID: number) => ({type: UNFOLLOW, userID: userID}) as const //воспринимать объект как константу в TS
-export const setUsersAC = (users: Array<UsersApiPropsType>) => ({type: SET_USERS, users: users}) as const
-export const setLoadingAC = (action: boolean) => ({type: TOGGLE_IS_LOADING, payload: action}) as const
-export const setTotalUsersCountAC = (totalCount: number) => ({type: SET_TOTAL_USERS_COUNT, count: totalCount}) as const
+export const follow = (userID: number) => ({type: FOLLOW, userID: userID}) as const
+export const currentPageChoice = (page: number) => ({type: SET_CURRENT_PAGE, page: page}) as const
+export const unfollow = (userID: number) => ({type: UNFOLLOW, userID: userID}) as const //воспринимать объект как константу в TS
+export const setUsers = (users: Array<UsersApiPropsType>) => ({type: SET_USERS, users: users}) as const
+export const toggleIsLoading = (action: boolean) => ({type: TOGGLE_IS_LOADING, payload: action}) as const
+export const setTotalUsersCount = (totalCount: number) => ({type: SET_TOTAL_USERS_COUNT, count: totalCount}) as const
 

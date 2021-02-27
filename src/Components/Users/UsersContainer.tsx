@@ -1,19 +1,17 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {
-  currentPageAC,
-  followAC,
-  InitialStateType, setLoadingAC,
-  setTotalUsersCountAC,
-  setUsersAC,
-  unfollowAC
+  currentPageChoice,
+  follow,
+  InitialStateType,
+  setTotalUsersCount,
+  setUsers,
+  toggleIsLoading,
+  unfollow
 } from '../../redux/users-reducer';
-import {Action, Dispatch} from 'redux';
-import {UsersApiPropsType} from './UsersFunction';
 import axios from 'axios';
 import Users from './Users';
 import {UsersType} from '../../types/entities';
-import spin from '../../assets/icons/Spin.svg'
 import PreLoader from '../Common/PreLoader/PreLoader';
 
 type StateType = {
@@ -52,15 +50,15 @@ class UsersClass extends React.Component<UsersType> {//конструктор и
 
   render() {
     return <>
-      {this.props.isLoading ? <PreLoader />:null}
-              <Users users={this.props.users }
-                    currentPage={this.props.currentPage}
-                    pageSize={this.props.pageSize}
-                    totalUsersCount={this.props.totalUsersCount}
-                    unfollow={this.props.unfollow}
-                    follow={this.props.follow}
-                    onPageChanged={this.onPageChanged}/>
-          </>
+      {this.props.isLoading ? <PreLoader/> : null}
+      <Users users={this.props.users}
+             currentPage={this.props.currentPage}
+             pageSize={this.props.pageSize}
+             totalUsersCount={this.props.totalUsersCount}
+             unfollow={this.props.unfollow}
+             follow={this.props.follow}
+             onPageChanged={this.onPageChanged}/>
+    </>
   }
 }
 
@@ -75,7 +73,7 @@ const mapStateToProps = (state: StateType) => {//принимает глобал
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => {//передает дочерней компненте колбэки
+/*const mapDispatchToProps = (dispatch: Dispatch<Action>) => {//передает дочерней компненте колбэки
   return {
     follow: (userId: number) => {
       dispatch(followAC(userId))
@@ -95,8 +93,22 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => {//передает �
     toggleIsLoading:(action:boolean)=>{
       dispatch(setLoadingAC(action))
     }
-  }
+  }*/
+// рефакторинг этого кода выглядит как
+/*follow:followAC,
+    unfollow:unfollowAC,
+    setUsers:setUsersAC,
+    currentPageChoice: currentPageAC,
+    setTotalUsersCount: setTotalUsersCountAC,
+    toggleIsLoading:setLoadingAC
+    // рефактор этого кода выглядит так
+    follow,
+    unfollow,
+    setUsers,
+    currentPageChoice,
+    setTotalUsersCount,
+    toggleIsLoading
+*/
 
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersClass);
+export default connect(mapStateToProps,    {follow, unfollow, setUsers, currentPageChoice, setTotalUsersCount, toggleIsLoading})(UsersClass);
