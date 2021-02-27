@@ -65,3 +65,25 @@ export type ActionType =
     | ReturnType<typeof currentPageAC>
     | ReturnType<typeof setTotalUsersCountAC>
 
+export type UsersApiPropsType = {
+  id: number
+  name: string
+  followed: boolean
+  photos: {
+    large: any
+    small: any
+  }
+  status: any
+  uniqueUrlName: any
+}
+export type UsersType = {
+  users: Array<UsersApiPropsType>
+  pageSize:number
+  totalUsersCount:number
+  currentPage:number
+  follow: (id: number) => void
+  unfollow: (id: number) => void
+  setUsers: (user: Array<UsersApiPropsType>) => void
+  currentPageChoice:(page:number)=>void
+  setTotalUsersCount:(count:number)=>void
+}

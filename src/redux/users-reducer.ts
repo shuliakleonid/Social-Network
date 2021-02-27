@@ -1,7 +1,7 @@
 import {ActionType} from '../types/entities';
 import {FOLLOW, SET_CURRENT_PAGE, SET_TOTAL_USERS_COUNT, SET_USERS, UNFOLLOW} from '../constant';
 import user from '../assets/icons/user.png'
-import {UsersApiPropsType} from '../Components/Users/Users';
+import {UsersApiPropsType} from '../Components/Users/UsersFunction';
 
 type LocationType = {
   city: string

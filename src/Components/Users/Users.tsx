@@ -1,65 +1,43 @@
-import React, {useEffect, useState} from 'react';
-import {UserType} from '../../redux/users-reducer';
-import style from './Users.module.css'
-import axios from 'axios';
-import user from '../../assets/icons/user.png'
+import React, {FunctionComponent} from 'react';
+import style from './Users.module.css';
+import user from '../../assets/icons/user.png';
+import {UsersApiPropsType} from './UsersFunction';
 
-type UsersPropsType = {
-  users: Array<UserType>
-  follow: (userId: number) => void
-  unfollow: (userId: number) => void
-  setUsers: (users: Array<UserType>) => void
+type UsersTypeProps = {
+  users: Array<UsersApiPropsType>
+  pageSize:number
+  totalUsersCount:number
+  currentPage:number
+  follow: (id: number) => void
+  unfollow: (id: number) => void
+  onPageChanged:(page:number)=>void
 }
-export type UsersApiPropsType = {
-  id: number
-  name: string
-  followed: boolean
-  photos: {
-    large: any
-    small: any
-  }
-  status: any
-  uniqueUrlName: any
-}
+const Users:FunctionComponent<UsersTypeProps>= (props) => {
 
-const Users = (props: UsersPropsType) => {
-  const [usersData, setUsersData] = useState(props.users)
-
-
-// const getUsers=()=>{
-  useEffect(() => {//для выполнения одного запроса (без юзЭфекта будет бесконечный запрос)
-    axios.get('https://social-network.samuraijs.com/api/1.0/users')//делаем на сервер запрос о данных
-        .then(response => {//делаем с данными что-то
-          console.log(response.data.items)
-          setUsersData(response.data.items)
-        })
-
-  },[props])
-
-// }
-
-
-  const followButton = (id: number) => {
-    props.follow(id)
-  }
-  const unFollowButton = (id: number) => {
-    props.unfollow(id)
+  const pagesCount = Math.ceil(props.totalUsersCount/props.pageSize);
+  const pages=[];
+  for (let i =1;i<=pagesCount;i++){
+    pages.push(i)
   }
 
   return (
       <div>
-        {/*<button onClick={getUsers}>Get Users</button>*/}
+        <div>
+          {
+            pages.map(el=><span onClick={()=>props.onPageChanged(el)} className={ props.currentPage === el ? style.pageNumber:''}>{el}--</span>)
+          }
+        </div>
         {
-          usersData.map(el => <div key={el.id}>
+           props.users.map(el => <div key={el.id}>
             <span>
-              <div><img src={user} className={style.photoUser}/></div>
+              <div><img alt='img' src={el.photos.small !=null?el.photos.small: user} className={style.photoUser}/></div>
               <div>
                 {el.followed
                     ? <button onClick={() => {
-                      unFollowButton(el.id)
+                       props.unfollow(el.id)
                     }}>Unfollow</button>
                     : <button onClick={() => {
-                      followButton(el.id)
+                       props.follow(el.id)
                     }}>Follow</button>}
                 </div>
               </span>
