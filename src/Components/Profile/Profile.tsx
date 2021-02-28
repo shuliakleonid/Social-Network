@@ -2,6 +2,7 @@ import React, {ChangeEvent} from 'react';
 import style from './SectionMain.module.css';
 import Posts from './My_Posts/Post';
 import {ProfileContainerPropsType} from './ProfileContainer';
+import PreLoader from '../Common/PreLoader/PreLoader';
 
 
 const Profile = (props: ProfileContainerPropsType) => {
@@ -24,6 +25,10 @@ const Profile = (props: ProfileContainerPropsType) => {
 
     />
   })
+
+  if(!props.profilePage.profile){
+    return <PreLoader/>
+  }
   return (
 
       <>

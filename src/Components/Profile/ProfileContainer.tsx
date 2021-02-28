@@ -4,6 +4,7 @@ import {buttonAddPost, setUserProfile, updateNewPostText} from '../../redux/prof
 import {connect} from 'react-redux';
 import Profile from './Profile';
 import axios from 'axios';
+import { withRouter } from "react-router";
 
 export interface ProfileContainerPropsType{
   profilePage: ProfilePagesType;
@@ -13,9 +14,13 @@ export interface ProfileContainerPropsType{
 }
 
 class ProfileClass extends React.Component<ProfileContainerPropsType>{
+
   componentDidMount() {
+//@ts-ignore
+    const userId = this.props.match.params.userId
+    debugger
     // this.props.toggleIsLoading(true)// включаем спинер при загрузке
-    axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`)//делаем на сервер запрос о данных
+    axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)//делаем на сервер запрос о данных
         .then(response => {//делаем с данными что-то
           console.log(response.data)
           this.props.setUserProfile(response.data)
@@ -77,6 +82,12 @@ const mapStateToProps = (state: StateType) => {
 //     buttonAddPost: () => dispatch(addPostActionCreator()),
 //     updateNewPostText: (text: string) => dispatch(updateNewPostTextActionCreator(text))
 //   }
-// }
-export default connect(mapStateToProps, {buttonAddPost, updateNewPostText,setUserProfile})(ProfileClass)
+
+
+
+// @ts-ignore
+const withUrlDataContainerComponent = withRouter(ProfileClass)
+
+
+export default connect(mapStateToProps, {buttonAddPost, updateNewPostText,setUserProfile})(withUrlDataContainerComponent)
 

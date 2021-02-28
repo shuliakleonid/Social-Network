@@ -24,7 +24,7 @@ const App = () => {
           <main className={style.main}>
             <Navigation/>
             <div className={style.content}>
-              <Route path='/profile'
+              <Route path='/profile/:userId?'
                      render={() => <ProfileContainer
                          // store={store}
                          // dispatch={dispatch}
