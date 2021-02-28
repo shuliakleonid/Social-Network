@@ -7,9 +7,9 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import News from './Components/News/News';
 import Music from './Components/Music/Music';
 import Settings from './Components/Settings/Settings';
-import {ProfileContainer} from '../src/Components/Profile/ProfileConteiner'
 import DialogContainer from './Components/Dialogs/DialogsContainer';
 import UsersContainer from './Components/Users/UsersContainer';
+import ProfileContainer from './Components/Profile/ProfileContainer';
 
 // type PropsType = {
 //   store: StateType

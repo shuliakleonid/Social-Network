@@ -1,17 +1,10 @@
 import React, {ChangeEvent} from 'react';
 import style from './SectionMain.module.css';
 import Posts from './My_Posts/Post';
-import {ProfilePagesType} from '../../types/entities';
+import {ProfileContainerPropsType} from './ProfileContainer';
 
 
-type PropsType = {
-  buttonAddPost: () => void
-  profilePage: ProfilePagesType;
-  updateNewPostText: (text: string) => void
-}
-
-
-const Profile = (props: PropsType) => {
+const Profile = (props: ProfileContainerPropsType) => {
   const onAddPost = () => {
     props.buttonAddPost()
   }
@@ -28,17 +21,22 @@ const Profile = (props: PropsType) => {
         message={i.message}
         like={i.likesCount}
         id={i.id}
+
     />
   })
   return (
-      <section className={style.wrapper}>
+
+      <>
+        <img src={props.profilePage.profile.photos.large} alt=""/>
+        <section className={style.wrapper}>
         <textarea
             onChange={onPostsChange}
             value={props.profilePage.newPostText}
             placeholder='Add message'/>
-        <button onClick={onAddPost}>Add post</button>
-        {postsMessage}
-      </section>
+          <button onClick={onAddPost}>Add post</button>
+          {postsMessage}
+        </section>
+      </>
   )
 }
 export default Profile;

@@ -1,6 +1,12 @@
 import {addMessageActionCreator, updateNewMessageTextActionCreator} from '../redux/dialogs-reducer';
-import {addPostActionCreator, updateNewPostTextActionCreator} from '../redux/profile-reducer';
-import {  currentPageChoice, follow, setTotalUsersCount, setUsers, toggleIsLoading, unfollow
+import {buttonAddPost, setUserProfile, updateNewPostText} from '../redux/profile-reducer';
+import {
+  currentPageChoice,
+  follow,
+  setTotalUsersCount,
+  setUsers,
+  toggleIsLoading,
+  unfollow
 } from '../redux/users-reducer';
 
 export type StoreType = {
@@ -18,6 +24,7 @@ export type StoreType = {
 export type ProfilePagesType = {
   posts: Array<PostType>
   newPostText: string
+  profile:  ProfileAPIType
 }
 export type PostType = {
   id: number
@@ -56,8 +63,8 @@ export type DialogsType = {
 // }
 
 export type ActionType =
-    ReturnType<typeof updateNewPostTextActionCreator>
-    | ReturnType<typeof addPostActionCreator>
+    ReturnType<typeof updateNewPostText>
+    | ReturnType<typeof buttonAddPost>
     | ReturnType<typeof updateNewMessageTextActionCreator>
     | ReturnType<typeof addMessageActionCreator>
     | ReturnType<typeof setUsers>
@@ -66,6 +73,7 @@ export type ActionType =
     | ReturnType<typeof currentPageChoice>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsLoading>
+    | ReturnType<typeof setUserProfile>
 
 export type UsersApiPropsType = {
   id: number
@@ -80,14 +88,36 @@ export type UsersApiPropsType = {
 }
 export type UsersType = {
   users: Array<UsersApiPropsType>
-  pageSize:number
-  totalUsersCount:number
-  currentPage:number
+  pageSize: number
+  totalUsersCount: number
+  currentPage: number
   follow: (id: number) => void
   unfollow: (id: number) => void
   setUsers: (user: Array<UsersApiPropsType>) => void
-  currentPageChoice:(page:number)=>void
-  setTotalUsersCount:(count:number)=>void
-  isLoading:boolean
-  toggleIsLoading:(action:boolean)=>void
+  currentPageChoice: (page: number) => void
+  setTotalUsersCount: (count: number) => void
+  isLoading: boolean
+  toggleIsLoading: (action: boolean) => void
+}
+
+export type ProfileAPIType = {
+  aboutMe: string
+  contacts: {
+    facebook: string
+    website: null
+    vk: string
+    twitter: string
+    instagram: string
+    youtube: null
+    github: string
+    mainLink: null
+  },
+  lookingForAJob: true
+  lookingForAJobDescription: string
+  fullName: string
+  userId: number
+  photos: {
+    small: string
+    large: string
+  }
 }

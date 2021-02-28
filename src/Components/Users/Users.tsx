@@ -3,6 +3,7 @@ import style from './Users.module.css';
 import user from '../../assets/icons/user.png';
 import {UsersApiPropsType} from './UsersFunction';
 import {v1} from 'uuid';
+import {NavLink} from 'react-router-dom';
 
 type UsersTypeProps = {
   users: Array<UsersApiPropsType>
@@ -31,7 +32,10 @@ const Users:FunctionComponent<UsersTypeProps>= (props) => {
         {
            props.users.map(el => <div key={el.id}>
             <span>
-              <div><img alt='img' src={el.photos.small !=null?el.photos.small: user} className={style.photoUser}/></div>
+              <div>
+                <NavLink to={`/profile/${el.id}`}>
+                <img alt='img' src={el.photos.small !=null?el.photos.small: user} className={style.photoUser}/></NavLink>
+              </div>
               <div>
                 {el.followed
                     ? <button onClick={() => {
