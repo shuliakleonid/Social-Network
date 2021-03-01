@@ -8,6 +8,7 @@ import {
   toggleIsLoading,
   unfollow
 } from '../redux/users-reducer';
+import {setAuthUserData} from '../redux/auth-reducer';
 
 export type StoreType = {
   _state: StateType
@@ -51,16 +52,6 @@ export type DialogsType = {
   id: number
   name: string
 }
-// export type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextActionCreator>
-//     {
-//   type: 'UPDATE_NEW_POST_TEXT'
-//   newText: string
-// }
-
-// export type AddPostActionType = ReturnType<typeof addPostActionCreator>
-//     {
-//   type: 'ADD_POST'
-// }
 
 export type ActionType =
     ReturnType<typeof updateNewPostText>
@@ -74,6 +65,7 @@ export type ActionType =
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsLoading>
     | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setAuthUserData>
 
 export type UsersApiPropsType = {
   id: number

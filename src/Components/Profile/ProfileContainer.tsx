@@ -17,12 +17,13 @@ class ProfileClass extends React.Component<ProfileContainerPropsType>{
 
   componentDidMount() {
 //@ts-ignore
-    const userId = this.props.match.params.userId
+    let userId = this.props.match.params.userId
+    if(!userId){userId='2'}
     debugger
     // this.props.toggleIsLoading(true)// включаем спинер при загрузке
     axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)//делаем на сервер запрос о данных
         .then(response => {//делаем с данными что-то
-          console.log(response.data)
+          // console.log(response.data)
           this.props.setUserProfile(response.data)
           // this.props.toggleIsLoading(false)// выключаем спинер при загрузке
 

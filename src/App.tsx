@@ -10,6 +10,7 @@ import Settings from './Components/Settings/Settings';
 import DialogContainer from './Components/Dialogs/DialogsContainer';
 import UsersContainer from './Components/Users/UsersContainer';
 import ProfileContainer from './Components/Profile/ProfileContainer';
+import HeaderContainer from './Components/Header/HeaderContainer';
 
 // type PropsType = {
 //   store: StateType
@@ -20,7 +21,7 @@ const App = () => {
   return (
       <BrowserRouter>
         <div className={style.wrapper}>
-          <Header/>
+          <HeaderContainer/>
           <main className={style.main}>
             <Navigation/>
             <div className={style.content}>
