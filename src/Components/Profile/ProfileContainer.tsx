@@ -19,7 +19,7 @@ class ProfileClass extends React.Component<ProfileContainerPropsType>{
 //@ts-ignore
     let userId = this.props.match.params.userId
     if(!userId){userId='2'}
-    debugger
+
     // this.props.toggleIsLoading(true)// включаем спинер при загрузке
     axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)//делаем на сервер запрос о данных
         .then(response => {//делаем с данными что-то

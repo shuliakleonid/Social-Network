@@ -9,7 +9,6 @@ type HeaderProps = {
 }
 const Header: FunctionComponent<HeaderProps> = (props) => {
 
-  console.log(props,'Header')
   return (
       <header className={classes.wrapper}>
         <img className={classes.logo} src={logo} alt='logo'/>

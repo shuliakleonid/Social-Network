@@ -18,10 +18,10 @@ class HeaderContainer extends React.Component<HeaderContainerPropsType> {
 
           if (res.data.resultCode === 0) {
             const {id, email, login} = res.data.data
-            console.log(id, email, login, 'Enter')
+            console.log('Enter')
             this.props.setAuthUserData({id, email, login})
           } else {
-            console.log(res.data, 'Не зашел')
+            console.log('Не зашел')
           }
         })
   }
@@ -33,7 +33,7 @@ class HeaderContainer extends React.Component<HeaderContainerPropsType> {
 }
 
 const mapStateToProps = (state: any) => {
-  console.log(state)
+  // console.log(state)
   return {isAuth: state.auth.isAuth, login: state.auth.login}
 
 }

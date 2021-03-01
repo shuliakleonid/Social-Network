@@ -26,9 +26,9 @@ class UsersClass extends React.Component<UsersType> {//конструктор и
 // }
   componentDidMount() {
     this.props.toggleIsLoading(true)// включаем спинер при загрузке
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)//делаем на сервер запрос о данных
+    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize},`,{withCredentials:true})//делаем на сервер запрос о данных
         .then(response => {//делаем с данными что-то
-          console.log(response.data.items)
+          // console.log(response.data.items)
           this.props.setUsers(response.data.items)
           this.props.setTotalUsersCount(response.data.totalCount)
           this.props.toggleIsLoading(false)// выключаем спинер при загрузке
@@ -39,9 +39,9 @@ class UsersClass extends React.Component<UsersType> {//конструктор и
   onPageChanged = (page: number) => {
     this.props.currentPageChoice(page)
     this.props.toggleIsLoading(true)
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`)//делаем на сервер запрос о данных
+    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`,{withCredentials:true})//делаем на сервер запрос о данных
         .then(response => {//делаем с данными что-то
-          console.log(response.data.items)
+          // console.log(response.data.items)
           this.props.setUsers(response.data.items)
           this.props.toggleIsLoading(false)
 
