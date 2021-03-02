@@ -9,10 +9,10 @@ import {
   toggleIsLoading,
   unfollow
 } from '../../redux/users-reducer';
-import axios from 'axios';
 import Users from './Users';
 import {UsersType} from '../../types/entities';
 import PreLoader from '../Common/PreLoader/PreLoader';
+import {usersAPI} from '../../api/api';
 
 type StateType = {
   usersPages: InitialStateType
@@ -26,23 +26,21 @@ class UsersClass extends React.Component<UsersType> {//конструктор и
 // }
   componentDidMount() {
     this.props.toggleIsLoading(true)// включаем спинер при загрузке
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize},`,{withCredentials:true})//делаем на сервер запрос о данных
-        .then(response => {//делаем с данными что-то
+    usersAPI.getUsers(this.props.currentPage,this.props.pageSize)//делаем на сервер запрос о данных
+        .then(data => {//делаем с данными что-то
           // console.log(response.data.items)
-          this.props.setUsers(response.data.items)
-          this.props.setTotalUsersCount(response.data.totalCount)
+          this.props.setUsers(data.items)
+          this.props.setTotalUsersCount(data.totalCount)
           this.props.toggleIsLoading(false)// выключаем спинер при загрузке
-
         })
   }
 
   onPageChanged = (page: number) => {
     this.props.currentPageChoice(page)
     this.props.toggleIsLoading(true)
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`,{withCredentials:true})//делаем на сервер запрос о данных
-        .then(response => {//делаем с данными что-то
-          // console.log(response.data.items)
-          this.props.setUsers(response.data.items)
+    //делаем на сервер запрос о данных
+    usersAPI.getUsers(page,this.props.pageSize).then(data => {//делаем с данными что-то
+          this.props.setUsers(data.items)
           this.props.toggleIsLoading(false)
 
         })

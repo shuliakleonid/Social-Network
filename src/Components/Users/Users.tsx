@@ -43,7 +43,8 @@ const Users: FunctionComponent<UsersTypeProps> = (props) => {
                 {el.followed
                     ? <button onClick={() => {
 
-                      axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {withCredentials: true,headers:{
+                      axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {withCredentials: true,
+                        headers:{
                           "API-KEY":"69c9d2d3-e5a4-4bb9-9356-a9517225e2b4"
                         }})//делаем на сервер запрос о данных
                           .then(response => {//делаем с данными что-то
