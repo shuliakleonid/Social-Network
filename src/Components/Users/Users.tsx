@@ -4,7 +4,7 @@ import user from '../../assets/icons/user.png';
 import {UsersApiPropsType} from './UsersFunction';
 import {v1} from 'uuid';
 import {NavLink} from 'react-router-dom';
-import axios from 'axios';
+import {usersAPI} from '../../api/api';
 
 type UsersTypeProps = {
   users: Array<UsersApiPropsType>
@@ -28,7 +28,9 @@ const Users: FunctionComponent<UsersTypeProps> = (props) => {
         <div>
           {
             pages.map(el => <span key={v1()} onClick={() => props.onPageChanged(el)}
-                                  className={props.currentPage === el ? style.pageNumber : ''}>{el}--</span>)
+                                  className={props.currentPage === el
+                                      ? style.pageNumber
+                                      : ''}>{el}--</span>)
           }
         </div>
         {
@@ -42,30 +44,19 @@ const Users: FunctionComponent<UsersTypeProps> = (props) => {
               <div>
                 {el.followed
                     ? <button onClick={() => {
-
-                      axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {withCredentials: true,
-                        headers:{
-                          "API-KEY":"69c9d2d3-e5a4-4bb9-9356-a9517225e2b4"
-                        }})//делаем на сервер запрос о данных
-                          .then(response => {//делаем с данными что-то
-                            if (response.data.resultCode === 0) {
-                              props.unfollow(el.id)
-                            }
-                          })
+                      usersAPI.getUnfollow(el.id).then(data => {//делаем с данными что-то
+                        if (data.resultCode === 0) {
+                          props.unfollow(el.id)
+                        }
+                      })
                     }}>Unfollow</button>
                     : <button onClick={() => {
-
-
-                      axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {},
-                    {withCredentials: true,headers:{
-                      "API-KEY":"69c9d2d3-e5a4-4bb9-9356-a9517225e2b4"
-                    }})//делаем на сервер запрос о данных
-                          .then(response => {//делаем с данными что-то
-                            if (response.data.resultCode === 0) {
-                              props.follow(el.id)
-                            }
-                          })
-                                     }}>Follow</button>}
+                      usersAPI.getFollow(el.id).then(data => {
+                        if (data.resultCode === 0) {
+                          props.follow(el.id)
+                        }
+                      })
+                    }}>Follow</button>}
                 </div>
               </span>
             <span>

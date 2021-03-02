@@ -11,12 +11,18 @@ export const usersAPI = {
     return instance.get(`users?page=${currentPage}&count=${pageSize}`, {withCredentials: true})
         .then(response => response.data)
   },
-  //делаем на сервер запрос о данных
-  getUsers2  (currentPage = 1, pageSize = 10)  {
-    return instance.get(`follow?page=${currentPage}&count=${pageSize}`, {withCredentials: true})
-        .then(response => response.data)
-  }//делаем на сервер запрос о данных
-
+  getFollow(id = 1) {
+    return instance.post(`follow/${id}`, {}).then(res => res.data)
+  },
+  getUnfollow(id = 1) {
+    return instance.delete(`follow/${id}`).then(res => res.data)
+  },
+  getProfile(userId =' 1') {
+    return instance.get(`profile/${userId}`).then(res => res.data)
+  },
+  getAuthentication() {
+    return instance.get('auth/me').then(res => res.data)
+  }
 
 
 }

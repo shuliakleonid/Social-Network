@@ -3,10 +3,14 @@ import {ProfileAPIType, ProfilePagesType, StateType} from '../../types/entities'
 import {buttonAddPost, setUserProfile, updateNewPostText} from '../../redux/profile-reducer';
 import {connect} from 'react-redux';
 import Profile from './Profile';
-import axios from 'axios';
-import { withRouter } from "react-router";
+import {withRouter} from 'react-router';
+import {usersAPI} from '../../api/api';
+import {RouteComponentProps} from "react-router";
 
-export interface ProfileContainerPropsType{
+type PathParamsType = {
+      userId:string
+}
+export interface ProfileContainerPropsType extends  RouteComponentProps<PathParamsType>  {
   profilePage: ProfilePagesType;
   buttonAddPost: () => void
   updateNewPostText: (text: string) => void
@@ -16,28 +20,18 @@ export interface ProfileContainerPropsType{
 class ProfileClass extends React.Component<ProfileContainerPropsType>{
 
   componentDidMount() {
-//@ts-ignore
     let userId = this.props.match.params.userId
-    if(!userId){userId='2'}
-
     // this.props.toggleIsLoading(true)// включаем спинер при загрузке
-    axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)//делаем на сервер запрос о данных
-        .then(response => {//делаем с данными что-то
-          // console.log(response.data)
-          this.props.setUserProfile(response.data)
+    usersAPI.getProfile(userId)//делаем на сервер запрос о данных
+        .then(data => {//делаем с данными что-то
+          this.props.setUserProfile(data)
           // this.props.toggleIsLoading(false)// выключаем спинер при загрузке
-
         })
   }
-
   render() {
   return <Profile {...this.props} />
 }
 }
-
-
-
-
 
 // type PropsType = {
 //   store: StateType;
@@ -84,11 +78,7 @@ const mapStateToProps = (state: StateType) => {
 //     updateNewPostText: (text: string) => dispatch(updateNewPostTextActionCreator(text))
 //   }
 
-
-
-// @ts-ignore
 const withUrlDataContainerComponent = withRouter(ProfileClass)
-
 
 export default connect(mapStateToProps, {buttonAddPost, updateNewPostText,setUserProfile})(withUrlDataContainerComponent)
 
