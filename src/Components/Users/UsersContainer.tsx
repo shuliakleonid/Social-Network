@@ -6,6 +6,7 @@ import {
   InitialStateType,
   setTotalUsersCount,
   setUsers,
+  toggleIsFollowing,
   toggleIsLoading,
   unfollow
 } from '../../redux/users-reducer';
@@ -26,7 +27,7 @@ class UsersClass extends React.Component<UsersType> {//конструктор и
 // }
   componentDidMount() {
     this.props.toggleIsLoading(true)// включаем спинер при загрузке
-    usersAPI.getUsers(this.props.currentPage,this.props.pageSize)//делаем на сервер запрос о данных
+    usersAPI.getUsers(this.props.currentPage, this.props.pageSize)//делаем на сервер запрос о данных
         .then(data => {//делаем с данными что-то
           // console.log(response.data.items)
           this.props.setUsers(data.items)
@@ -39,11 +40,11 @@ class UsersClass extends React.Component<UsersType> {//конструктор и
     this.props.currentPageChoice(page)
     this.props.toggleIsLoading(true)
     //делаем на сервер запрос о данных
-    usersAPI.getUsers(page,this.props.pageSize).then(data => {//делаем с данными что-то
-          this.props.setUsers(data.items)
-          this.props.toggleIsLoading(false)
+    usersAPI.getUsers(page, this.props.pageSize).then(data => {//делаем с данными что-то
+      this.props.setUsers(data.items)
+      this.props.toggleIsLoading(false)
 
-        })
+    })
   }
 
   render() {
@@ -55,19 +56,24 @@ class UsersClass extends React.Component<UsersType> {//конструктор и
              totalUsersCount={this.props.totalUsersCount}
              unfollow={this.props.unfollow}
              follow={this.props.follow}
-             onPageChanged={this.onPageChanged}/>
+             onPageChanged={this.onPageChanged}
+             followingInProgress={this.props.followingInProgress}
+             toggleIsFollowing={this.props.toggleIsFollowing}
+      />
     </>
   }
 }
 
 
-const mapStateToProps = (state: StateType) => {//принимает глобальный стэйт целиком
+const mapStateToProps = (state: StateType): InitialStateType => {//принимает глобальный стэйт целиком
   return {
     users: state.usersPages.users,
     pageSize: state.usersPages.pageSize,
     totalUsersCount: state.usersPages.totalUsersCount,
     currentPage: state.usersPages.currentPage,
-    isLoading: state.usersPages.isLoading
+    isLoading: state.usersPages.isLoading,
+    followingInProgress: state.usersPages.followingInProgress
+
   }
 }
 
@@ -109,4 +115,13 @@ const mapStateToProps = (state: StateType) => {//принимает глобал
 */
 
 
-export default connect(mapStateToProps,    {follow, unfollow, setUsers, currentPageChoice, setTotalUsersCount, toggleIsLoading})(UsersClass);
+export default connect(mapStateToProps,
+    {
+      follow,
+      unfollow,
+      setUsers,
+      currentPageChoice,
+      setTotalUsersCount,
+      toggleIsLoading,
+      toggleIsFollowing
+    })(UsersClass);

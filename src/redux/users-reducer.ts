@@ -1,5 +1,13 @@
 import {ActionType} from '../types/entities';
-import {FOLLOW, SET_CURRENT_PAGE, SET_TOTAL_USERS_COUNT, SET_USERS, TOGGLE_IS_LOADING, UNFOLLOW} from '../constant';
+import {
+  FOLLOW,
+  SET_CURRENT_PAGE,
+  SET_TOTAL_USERS_COUNT,
+  SET_USERS,
+  TOGGLE_IS_FOLLOWING,
+  TOGGLE_IS_LOADING,
+  UNFOLLOW
+} from '../constant';
 import {UsersApiPropsType} from '../Components/Users/UsersFunction';
 
 type LocationType = {
@@ -19,7 +27,8 @@ export type InitialStateType = {
   pageSize: number
   totalUsersCount: number
   currentPage: number
-  isLoading:boolean
+  isLoading: boolean
+  followingInProgress: Array<number>
 }
 
 const initialState: InitialStateType = {
@@ -95,6 +104,7 @@ const initialState: InitialStateType = {
   totalUsersCount: 0,
   currentPage: 1,
   isLoading: true,
+  followingInProgress: []
 }
 
 
@@ -110,18 +120,22 @@ export const usersReducer = (state = initialState, action: ActionType): InitialS
       return {...state, currentPage: action.page}
     case SET_TOTAL_USERS_COUNT:
       return {...state, totalUsersCount: action.count}
-      case TOGGLE_IS_LOADING:
+    case TOGGLE_IS_LOADING:
       return {...state, isLoading: action.payload}
+    case TOGGLE_IS_FOLLOWING:
+      return {...state, followingInProgress:action.isFetching
+            ? [...state.followingInProgress,action.userId]
+            : state.followingInProgress.filter(id => id !== action.userId)}//убирает пользователя из массива(все кроме него)
     default:
       return state
-
   }
 }
 
 export const follow = (userID: number) => ({type: FOLLOW, userID: userID}) as const
-export const currentPageChoice = (page: number) => ({type: SET_CURRENT_PAGE, page: page}) as const
 export const unfollow = (userID: number) => ({type: UNFOLLOW, userID: userID}) as const //воспринимать объект как константу в TS
+export const currentPageChoice = (page: number) => ({type: SET_CURRENT_PAGE, page: page}) as const
 export const setUsers = (users: Array<UsersApiPropsType>) => ({type: SET_USERS, users: users}) as const
 export const toggleIsLoading = (action: boolean) => ({type: TOGGLE_IS_LOADING, payload: action}) as const
+export const toggleIsFollowing = (userId: number,isFetching:boolean) => ({type: TOGGLE_IS_FOLLOWING, userId,isFetching}) as const
 export const setTotalUsersCount = (totalCount: number) => ({type: SET_TOTAL_USERS_COUNT, count: totalCount}) as const
 

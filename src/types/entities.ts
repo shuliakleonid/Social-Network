@@ -5,6 +5,7 @@ import {
   follow,
   setTotalUsersCount,
   setUsers,
+  toggleIsFollowing,
   toggleIsLoading,
   unfollow
 } from '../redux/users-reducer';
@@ -25,7 +26,7 @@ export type StoreType = {
 export type ProfilePagesType = {
   posts: Array<PostType>
   newPostText: string
-  profile:  ProfileAPIType
+  profile: ProfileAPIType
 }
 export type PostType = {
   id: number
@@ -65,6 +66,7 @@ export type ActionType =
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsLoading>
     | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof toggleIsFollowing>
     | ReturnType<typeof setAuthUserData>
 
 export type UsersApiPropsType = {
@@ -89,7 +91,10 @@ export type UsersType = {
   currentPageChoice: (page: number) => void
   setTotalUsersCount: (count: number) => void
   isLoading: boolean
+  followingInProgress: Array<number>
   toggleIsLoading: (action: boolean) => void
+  toggleIsFollowing: (id: number,isFetching:boolean) => void
+
 }
 
 export type ProfileAPIType = {

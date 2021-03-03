@@ -9,7 +9,6 @@ export interface initialStateType {
   isAuth?: boolean
 }
 
-
 const initialState: initialStateType = {
   id: null,
   email: null,
@@ -20,7 +19,6 @@ const initialState: initialStateType = {
 const authReducer = (state = initialState, action: ActionType) => {
   switch (action.type) {
     case SET_USER_DATA:
-      console.log({...state, ...action.data, isAuth: true}, 'STATE')
       return {...state, ...action.data, isAuth: true}
     default:
       return state
