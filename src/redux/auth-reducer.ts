@@ -2,21 +2,22 @@ import {SET_USER_DATA} from '../constant';
 import {ActionType} from '../types/entities';
 
 
-export interface initialStateType {
-  id: any
-  email: any
-  login: any
-  isAuth?: boolean
+export interface DataStateType {
+  id: number
+  email: string
+  login: string
 }
 
-const initialState: initialStateType = {
-  id: null,
-  email: null,
-  login: null,
+
+const initialState = {
+  id: 1,
+  email:'1',
+  login: '1',
   isAuth: false
 }
 
-const authReducer = (state = initialState, action: ActionType) => {
+type InitialStateTypeAuthReducer = typeof initialState
+const authReducer = (state:InitialStateTypeAuthReducer = initialState, action: ActionType) => {
   switch (action.type) {
     case SET_USER_DATA:
       return {...state, ...action.data, isAuth: true}
@@ -24,6 +25,6 @@ const authReducer = (state = initialState, action: ActionType) => {
       return state
   }
 }
-export const setAuthUserData = (data: initialStateType) => ({type: SET_USER_DATA, data}) as const
+export const setAuthUserData = (data: DataStateType) => ({type: SET_USER_DATA, data}) as const
 
 export default authReducer

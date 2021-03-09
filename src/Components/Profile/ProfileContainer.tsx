@@ -6,6 +6,11 @@ import Profile from './Profile';
 import {withRouter} from 'react-router';
 import {usersAPI} from '../../api/api';
 import {RouteComponentProps} from "react-router";
+import {AppStateType} from '../../redux/redux-store';
+
+type MatchStateDispatchToProps={
+  profilePage:ProfilePagesType
+}
 
 type PathParamsType = {
       userId:string
@@ -67,7 +72,7 @@ class ProfileClass extends React.Component<ProfileContainerPropsType>{
 //       </StoreContext.Consumer>)
 // }
 
-const mapStateToProps = (state: StateType) => {
+const mapStateToProps = (state: AppStateType):MatchStateDispatchToProps => {
   return {
     profilePage: state.profilePage
   }

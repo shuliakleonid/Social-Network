@@ -2,7 +2,7 @@ import {addMessageActionCreator, updateNewMessageTextActionCreator} from '../red
 import {buttonAddPost, setUserProfile, updateNewPostText} from '../redux/profile-reducer';
 import {
   currentPageChoice,
-  follow,
+  follow, getFollowThunkCreator,
   setTotalUsersCount,
   setUsers,
   toggleIsFollowing,
@@ -93,8 +93,10 @@ export type UsersType = {
   isLoading: boolean
   followingInProgress: Array<number>
   toggleIsLoading: (action: boolean) => void
-  toggleIsFollowing: (id: number,isFetching:boolean) => void
-
+  toggleIsFollowing: (id: number, isFetching: boolean) => void
+  getUsersThunkCreator: (page: number, pageSize: number) => void
+  getFollowThunkCreator:(id:number)=>void
+  getUnFollowThunkCreator:(id:number)=>void
 }
 
 export type ProfileAPIType = {

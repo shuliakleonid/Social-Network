@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from 'react';
-import logo from '../../logo.svg'
+import logo from '../../assets/icons/logo.svg'
 import classes from './Header.module.css'
 import {NavLink} from 'react-router-dom'
 

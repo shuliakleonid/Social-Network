@@ -9,6 +9,8 @@ import {
   UNFOLLOW
 } from '../constant';
 import {UsersApiPropsType} from '../Components/Users/UsersFunction';
+import {Dispatch} from 'redux';
+import {usersAPI} from '../api/api';
 
 type LocationType = {
   city: string
@@ -123,9 +125,11 @@ export const usersReducer = (state = initialState, action: ActionType): InitialS
     case TOGGLE_IS_LOADING:
       return {...state, isLoading: action.payload}
     case TOGGLE_IS_FOLLOWING:
-      return {...state, followingInProgress:action.isFetching
-            ? [...state.followingInProgress,action.userId]
-            : state.followingInProgress.filter(id => id !== action.userId)}//убирает пользователя из массива(все кроме него)
+      return {
+        ...state, followingInProgress: action.isFetching
+            ? [...state.followingInProgress, action.userId]
+            : state.followingInProgress.filter(id => id !== action.userId)
+      }//убирает пользователя из массива(все кроме него)
     default:
       return state
   }
@@ -136,6 +140,56 @@ export const unfollow = (userID: number) => ({type: UNFOLLOW, userID: userID}) a
 export const currentPageChoice = (page: number) => ({type: SET_CURRENT_PAGE, page: page}) as const
 export const setUsers = (users: Array<UsersApiPropsType>) => ({type: SET_USERS, users: users}) as const
 export const toggleIsLoading = (action: boolean) => ({type: TOGGLE_IS_LOADING, payload: action}) as const
-export const toggleIsFollowing = (userId: number,isFetching:boolean) => ({type: TOGGLE_IS_FOLLOWING, userId,isFetching}) as const
+export const toggleIsFollowing = (userId: number, isFetching: boolean) => ({
+  type: TOGGLE_IS_FOLLOWING,
+  userId,
+  isFetching
+}) as const
 export const setTotalUsersCount = (totalCount: number) => ({type: SET_TOTAL_USERS_COUNT, count: totalCount}) as const
 
+
+
+// создаем санки
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
+  return (dispatch: Dispatch) => {//Thunk это функция которая  делает ассинхронную работу и делает внутри кучу диспатчей
+    dispatch(toggleIsLoading(true))// включаем спинер при загрузке
+    usersAPI.getUsers(currentPage, pageSize)//делаем на сервер запрос о данных
+        .then(data => {//делаем с данными что-то
+          console.log(data.items)
+          dispatch(setUsers(data.items))
+          dispatch(setTotalUsersCount(data.totalCount))
+          dispatch(toggleIsLoading(false))// выключаем спинер при загрузке
+        })
+  }
+}
+// создаем санки
+export const getFollowThunkCreator = (id: number) => {
+  return (dispatch: Dispatch) => {
+    console.log('follow dis')
+    dispatch(toggleIsFollowing(id, true))
+    usersAPI.getFollow(id).then(data => {
+      console.log(data.resultCode, 'FOLLOW')
+      if (data.resultCode === 0) {
+        dispatch(follow(id))
+      }
+      dispatch(toggleIsFollowing(id, false))
+    })
+  }
+}
+
+
+export const getUnFollowThunkCreator = (id: number) => {
+  debugger
+  return (dispatch: Dispatch) => {
+    dispatch(toggleIsFollowing(id, true))
+    usersAPI.getUnfollow(id).then(data => {
+      console.log('unfollow')
+      if (data.resultCode === 0) {
+        console.log(data.resultCode, 'UNFOLLOW')
+
+        dispatch(follow(id))
+      }
+      dispatch(toggleIsFollowing(id, false))
+    })
+  }
+}
