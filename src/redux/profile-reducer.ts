@@ -1,5 +1,7 @@
 import {ActionType, PostType, ProfileAPIType, ProfilePagesType} from '../types/entities';
 import {ADD_POST, SET_USERS_PROFILE, UPDATE_NEW_POST_TEXT} from '../constant';
+import {usersAPI} from '../api/api';
+import {Dispatch} from 'redux';
 
 const initialState: ProfilePagesType = {
   posts: [
@@ -60,4 +62,10 @@ export const updateNewPostText = (newText: string) => (
     {type: UPDATE_NEW_POST_TEXT, newText: newText}
 ) as const //воспринимать объект как константу в TS
 export const setUserProfile = (profile: ProfileAPIType) => ({type: SET_USERS_PROFILE, profile}) as const
+export const getUserProfile = (userId:string) => (dispatch:Dispatch)=>{
+  usersAPI.getProfile(userId)//делаем на сервер запрос о данных
+      .then(data => {//делаем с данными что-то
+        dispatch(setUserProfile(data))
+})
+}
 

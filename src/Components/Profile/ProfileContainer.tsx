@@ -1,6 +1,6 @@
 import React from 'react';
 import {ProfileAPIType, ProfilePagesType, StateType} from '../../types/entities';
-import {buttonAddPost, setUserProfile, updateNewPostText} from '../../redux/profile-reducer';
+import {buttonAddPost, getUserProfile, setUserProfile, updateNewPostText} from '../../redux/profile-reducer';
 import {connect} from 'react-redux';
 import Profile from './Profile';
 import {withRouter} from 'react-router';
@@ -19,19 +19,22 @@ export interface ProfileContainerPropsType extends  RouteComponentProps<PathPara
   profilePage: ProfilePagesType;
   buttonAddPost: () => void
   updateNewPostText: (text: string) => void
-  setUserProfile:(profile:ProfileAPIType)=> void
+  // setUserProfile:(profile:ProfileAPIType)=> void
+  getUserProfile:(userId:string)=>void
 }
 
 class ProfileClass extends React.Component<ProfileContainerPropsType>{
 
   componentDidMount() {
     let userId = this.props.match.params.userId
+
+    this.props.getUserProfile(userId)
     // this.props.toggleIsLoading(true)// включаем спинер при загрузке
-    usersAPI.getProfile(userId)//делаем на сервер запрос о данных
-        .then(data => {//делаем с данными что-то
-          this.props.setUserProfile(data)
+    // usersAPI.getProfile(userId)//делаем на сервер запрос о данных
+    //     .then(data => {//делаем с данными что-то
+    //       this.props.setUserProfile(data)
           // this.props.toggleIsLoading(false)// выключаем спинер при загрузке
-        })
+        // })
   }
   render() {
   return <Profile {...this.props} />
@@ -85,5 +88,5 @@ const mapStateToProps = (state: AppStateType):MatchStateDispatchToProps => {
 
 const withUrlDataContainerComponent = withRouter(ProfileClass)
 
-export default connect(mapStateToProps, {buttonAddPost, updateNewPostText,setUserProfile})(withUrlDataContainerComponent)
+export default connect(mapStateToProps, {getUserProfile})(withUrlDataContainerComponent)
 

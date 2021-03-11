@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import {
   currentPageChoice,
   follow,
-  getFollowThunkCreator, getUnFollowThunkCreator,
+  getFollowThunkCreator,
+  getUnFollowThunkCreator,
   getUsersThunkCreator,
   InitialStateType,
   setTotalUsersCount,

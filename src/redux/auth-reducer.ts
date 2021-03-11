@@ -1,5 +1,7 @@
 import {SET_USER_DATA} from '../constant';
 import {ActionType} from '../types/entities';
+import {Dispatch} from 'redux';
+import {usersAPI} from '../api/api';
 
 
 export interface DataStateType {
@@ -27,4 +29,13 @@ const authReducer = (state:InitialStateTypeAuthReducer = initialState, action: A
 }
 export const setAuthUserData = (data: DataStateType) => ({type: SET_USER_DATA, data}) as const
 
+export const getAuthUserData = () =>(dispatch:Dispatch)=>{
+  usersAPI.getAuthentication()
+      .then((data) => {
+        if (data.resultCode === 0) {
+          const {id, email, login} = data.data
+          dispatch(setAuthUserData({id, email, login}))
+        }
+      })
+}
 export default authReducer

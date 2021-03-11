@@ -23,8 +23,6 @@ export const usersAPI = {
   getAuthentication() {
     return instance.get('auth/me').then(res => res.data)
   }
-
-
 }
 
 
