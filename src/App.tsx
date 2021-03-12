@@ -11,10 +11,6 @@ import UsersContainer from './Components/Users/UsersContainer';
 import ProfileContainer from './Components/Profile/ProfileContainer';
 import HeaderContainer from './Components/Header/HeaderContainer';
 
-// type PropsType = {
-//   store: StateType
-//   dispatch: (action: ActionType) => void
-// }
 
 const App = () => {
 
@@ -25,10 +21,8 @@ const App = () => {
           <main className={style.main}>
             <Navigation/>
             <div className={style.content}>
-              <Route path='/profile/:userId?'
-                                          render={() => <ProfileContainer/>}/>
-              <Route path='/dialogs'
-                     render={() => <DialogContainer/>}/>
+              <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
+              <Route path='/dialogs' render={() => <DialogContainer/>}/>
               <Route path='/users' render={() => <UsersContainer/>}/>
               <Route path='/news' render={() => <News/>}/>
               <Route path='/music' render={() => <Music/>}/>

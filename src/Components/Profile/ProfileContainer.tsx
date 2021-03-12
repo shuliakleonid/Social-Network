@@ -1,6 +1,6 @@
 import React from 'react';
 import {ProfileAPIType, ProfilePagesType} from '../../types/entities';
-import {getUserProfile} from '../../redux/profile-reducer';
+import {buttonAddPost, getUserProfile, updateNewPostText} from '../../redux/profile-reducer';
 import {connect} from 'react-redux';
 import Profile from './Profile';
 import {RouteComponentProps, withRouter} from 'react-router';
@@ -21,19 +21,18 @@ export interface ProfileContainerPropsType extends  RouteComponentProps<PathPara
   getUserProfile:(userId:string)=>void
 }
 
-class ProfileClass extends React.Component<any>{
+class ProfileClass extends React.Component<ProfileContainerPropsType>{
 
   componentDidMount() {
     debugger
     let userId = this.props.match.params.userId
-    // this.props.getUserProfile(userId)
+    this.props.getUserProfile(userId)
   }
 
 
 
   render() {
-  return <></>
-    // <Profile {...this.props} />
+  return <Profile {...this.props} />
 }
 }
 
@@ -84,5 +83,5 @@ const mapStateToProps = (state: AppStateType):MatchStateDispatchToProps => {
 
 const withUrlDataContainerComponent = withRouter(ProfileClass)
 
-export default connect(mapStateToProps, {getUserProfile})(withUrlDataContainerComponent)
+export default connect(mapStateToProps, {getUserProfile,buttonAddPost,updateNewPostText})(withUrlDataContainerComponent)
 

@@ -67,5 +67,7 @@ export const getUserProfile = (userId:string) => (dispatch:Dispatch<ActionType>)
       .then(data => {//делаем с данными что-то
         dispatch(setUserProfile(data))
 })
+
+
 }
 
