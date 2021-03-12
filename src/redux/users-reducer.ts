@@ -151,7 +151,7 @@ export const setTotalUsersCount = (totalCount: number) => ({type: SET_TOTAL_USER
 
 // создаем санки
 export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
-  return (dispatch: Dispatch) => {//Thunk это функция которая  делает ассинхронную работу и делает внутри кучу диспатчей
+  return (dispatch: Dispatch<ActionType>) => {//Thunk это функция которая  делает ассинхронную работу и делает внутри кучу диспатчей
     dispatch(toggleIsLoading(true))// включаем спинер при загрузке
     usersAPI.getUsers(currentPage, pageSize)//делаем на сервер запрос о данных
         .then(data => {//делаем с данными что-то
@@ -164,7 +164,7 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
 }
 // создаем санки
 export const getFollowThunkCreator = (id: number) => {
-  return (dispatch: Dispatch) => {
+  return (dispatch: Dispatch<ActionType>) => {
     console.log('follow dis')
     dispatch(toggleIsFollowing(id, true))
     usersAPI.getFollow(id).then(data => {
@@ -179,14 +179,12 @@ export const getFollowThunkCreator = (id: number) => {
 
 
 export const getUnFollowThunkCreator = (id: number) => {
-  debugger
-  return (dispatch: Dispatch) => {
+  return (dispatch: Dispatch<ActionType>) => {
     dispatch(toggleIsFollowing(id, true))
     usersAPI.getUnfollow(id).then(data => {
       console.log('unfollow')
       if (data.resultCode === 0) {
         console.log(data.resultCode, 'UNFOLLOW')
-
         dispatch(follow(id))
       }
       dispatch(toggleIsFollowing(id, false))

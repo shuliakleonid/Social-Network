@@ -1,11 +1,9 @@
 import React from 'react';
-import {ProfileAPIType, ProfilePagesType, StateType} from '../../types/entities';
-import {buttonAddPost, getUserProfile, setUserProfile, updateNewPostText} from '../../redux/profile-reducer';
+import {ProfileAPIType, ProfilePagesType} from '../../types/entities';
+import {getUserProfile} from '../../redux/profile-reducer';
 import {connect} from 'react-redux';
 import Profile from './Profile';
-import {withRouter} from 'react-router';
-import {usersAPI} from '../../api/api';
-import {RouteComponentProps} from "react-router";
+import {RouteComponentProps, withRouter} from 'react-router';
 import {AppStateType} from '../../redux/redux-store';
 
 type MatchStateDispatchToProps={
@@ -23,21 +21,19 @@ export interface ProfileContainerPropsType extends  RouteComponentProps<PathPara
   getUserProfile:(userId:string)=>void
 }
 
-class ProfileClass extends React.Component<ProfileContainerPropsType>{
+class ProfileClass extends React.Component<any>{
 
   componentDidMount() {
+    debugger
     let userId = this.props.match.params.userId
-
-    this.props.getUserProfile(userId)
-    // this.props.toggleIsLoading(true)// включаем спинер при загрузке
-    // usersAPI.getProfile(userId)//делаем на сервер запрос о данных
-    //     .then(data => {//делаем с данными что-то
-    //       this.props.setUserProfile(data)
-          // this.props.toggleIsLoading(false)// выключаем спинер при загрузке
-        // })
+    // this.props.getUserProfile(userId)
   }
+
+
+
   render() {
-  return <Profile {...this.props} />
+  return <></>
+    // <Profile {...this.props} />
 }
 }
 
@@ -48,9 +44,9 @@ class ProfileClass extends React.Component<ProfileContainerPropsType>{
 //
 // export const ProfileContainer = () => {
 //
-//   // const buttonAddPost = () => {
-//   //   props.dispatch(addPostActionCreator())
-//   // }
+//   const buttonAddPost = () => {
+//     props.dispatch(addPostActionCreator())
+//   }
 //   // const onPostsChange = (text: string) => {
 //   //   props.dispatch(updateNewPostTextActionCreator(text))
 //   // }

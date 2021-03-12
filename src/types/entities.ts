@@ -87,12 +87,12 @@ export type UsersType = {
   currentPage: number
   follow: (id: number) => void
   unfollow: (id: number) => void
-  setUsers: (user: Array<UsersApiPropsType>) => void
+  // setUsers: (user: Array<UsersApiPropsType>) => void
   currentPageChoice: (page: number) => void
-  setTotalUsersCount: (count: number) => void
+  // setTotalUsersCount: (count: number) => void
   isLoading: boolean
   followingInProgress: Array<number>
-  toggleIsLoading: (action: boolean) => void
+  // toggleIsLoading: (action: boolean) => void
   toggleIsFollowing: (id: number, isFetching: boolean) => void
   getUsersThunkCreator: (page: number, pageSize: number) => void
   getFollowThunkCreator:(id:number)=>void

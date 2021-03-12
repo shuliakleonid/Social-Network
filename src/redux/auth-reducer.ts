@@ -13,13 +13,13 @@ export interface DataStateType {
 
 const initialState = {
   id: 1,
-  email:'1',
+  email: '1',
   login: '1',
   isAuth: false
 }
 
 type InitialStateTypeAuthReducer = typeof initialState
-const authReducer = (state:InitialStateTypeAuthReducer = initialState, action: ActionType) => {
+const authReducer = (state: InitialStateTypeAuthReducer = initialState, action: ActionType) => {
   switch (action.type) {
     case SET_USER_DATA:
       return {...state, ...action.data, isAuth: true}
@@ -29,7 +29,7 @@ const authReducer = (state:InitialStateTypeAuthReducer = initialState, action: A
 }
 export const setAuthUserData = (data: DataStateType) => ({type: SET_USER_DATA, data}) as const
 
-export const getAuthUserData = () =>(dispatch:Dispatch)=>{
+export const getAuthUserData = () => (dispatch: Dispatch<ActionType>) => {
   usersAPI.getAuthentication()
       .then((data) => {
         if (data.resultCode === 0) {

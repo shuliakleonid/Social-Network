@@ -10,7 +10,6 @@ type MapStateToProps = {
 }
 
 type HeaderContainerPropsType = {
-  // setAuthUserData: (el: DataStateType) => void
   isAuth: boolean
   login: string
   getAuthUserData: () => void
@@ -18,7 +17,6 @@ type HeaderContainerPropsType = {
 
 class HeaderContainer extends React.Component<HeaderContainerPropsType> {
   componentDidMount() {
-
     this.props.getAuthUserData()
   }
   render() {

@@ -1,6 +1,5 @@
 import React from 'react';
 import style from './App.module.css';
-import Header from './Components/Header/Header';
 import Navigation from './Components/Navigation/Navigation';
 import Footer from './Components/Footer/Footer';
 import {BrowserRouter, Route} from 'react-router-dom';
@@ -18,6 +17,7 @@ import HeaderContainer from './Components/Header/HeaderContainer';
 // }
 
 const App = () => {
+
   return (
       <BrowserRouter>
         <div className={style.wrapper}>
@@ -26,15 +26,9 @@ const App = () => {
             <Navigation/>
             <div className={style.content}>
               <Route path='/profile/:userId?'
-                     render={() => <ProfileContainer
-                         // store={store}
-                         // dispatch={dispatch}
-                     />}/>
+                                          render={() => <ProfileContainer/>}/>
               <Route path='/dialogs'
-                     render={() => <DialogContainer
-                         // dispatch={dispatch}
-                         // dialogsPages={store.dialogsPages}
-                     />}/>
+                     render={() => <DialogContainer/>}/>
               <Route path='/users' render={() => <UsersContainer/>}/>
               <Route path='/news' render={() => <News/>}/>
               <Route path='/music' render={() => <Music/>}/>

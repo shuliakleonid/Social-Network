@@ -62,7 +62,7 @@ export const updateNewPostText = (newText: string) => (
     {type: UPDATE_NEW_POST_TEXT, newText: newText}
 ) as const //воспринимать объект как константу в TS
 export const setUserProfile = (profile: ProfileAPIType) => ({type: SET_USERS_PROFILE, profile}) as const
-export const getUserProfile = (userId:string) => (dispatch:Dispatch)=>{
+export const getUserProfile = (userId:string) => (dispatch:Dispatch<ActionType>)=>{
   usersAPI.getProfile(userId)//делаем на сервер запрос о данных
       .then(data => {//делаем с данными что-то
         dispatch(setUserProfile(data))

@@ -20,10 +20,7 @@ import {AppStateType} from '../../redux/redux-store';
 
 
 class UsersClass extends React.Component<UsersType> {//конструктор и супер можно не писать оно происходит автоматически
-// constructor(props:UsersType) {
-//   super(props);
-//
-// }
+
   componentDidMount() {
     this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
 
@@ -64,7 +61,6 @@ class UsersClass extends React.Component<UsersType> {//конструктор и
              getUnFollowThunkCreator={this.props.getUnFollowThunkCreator}
              toggleIsFollowing={this.props.toggleIsFollowing}
              followingInProgress={this.props.followingInProgress}
-
       />
     </>
   }
@@ -79,7 +75,6 @@ const mapStateToProps = (state: AppStateType): InitialStateType => {//прини
     currentPage: state.usersPages.currentPage,
     isLoading: state.usersPages.isLoading,
     followingInProgress: state.usersPages.followingInProgress
-
   }
 }
 
@@ -125,11 +120,12 @@ export default connect(mapStateToProps,
     {
       follow,
       unfollow,
-      setUsers,
+      // setUsers,
       currentPageChoice,
-      setTotalUsersCount,
-      toggleIsLoading,
+      // setTotalUsersCount,
+      // toggleIsLoading,
       toggleIsFollowing,
+
       getUsersThunkCreator,
       getFollowThunkCreator,
       getUnFollowThunkCreator

@@ -1,11 +1,18 @@
 import React, {ChangeEvent} from 'react';
 import style from './SectionMain.module.css';
 import Posts from './My_Posts/Post';
-import {ProfileContainerPropsType} from './ProfileContainer';
 import PreLoader from '../Common/PreLoader/PreLoader';
+import {ProfilePagesType} from '../../types/entities';
 
+type ProfilePropsType = {
+  profilePage: ProfilePagesType;
+  updateNewPostText: (text: string) => void
+  getUserProfile: (userId: string) => void
+  buttonAddPost: () => void
+}
 
-const Profile = (props: ProfileContainerPropsType) => {
+const Profile = (props: ProfilePropsType) => {
+  debugger
   const onAddPost = () => {
     props.buttonAddPost()
   }
@@ -13,7 +20,6 @@ const Profile = (props: ProfileContainerPropsType) => {
     if (e.currentTarget.value) {
       props.updateNewPostText(e.currentTarget.value)
     }
-    // props.dispatch(updateNewPostTextActionCreator(addNewPostElement.current.value))
   }
 
   let postsMessage = props.profilePage.posts.map((i) => {
@@ -26,7 +32,7 @@ const Profile = (props: ProfileContainerPropsType) => {
     />
   })
 
-  if(!props.profilePage.profile){
+  if (!props.profilePage.profile) {
     return <PreLoader/>
   }
   return (
@@ -38,7 +44,10 @@ const Profile = (props: ProfileContainerPropsType) => {
             onChange={onPostsChange}
             value={props.profilePage.newPostText}
             placeholder='Add message'/>
-          <button onClick={onAddPost}>Add post</button>
+          <button
+              onClick={onAddPost}
+          >Add post
+          </button>
           {postsMessage}
         </section>
       </>

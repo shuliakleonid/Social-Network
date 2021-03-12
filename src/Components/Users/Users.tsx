@@ -50,27 +50,11 @@ const Users: FunctionComponent<UsersTypeProps> = (props) => {
 
                         disabled={props.followingInProgress.some(id => id === el.id)}//если в массиве есть id пользователя то возвращает true
                         onClick={() => props.getUnFollowThunkCreator(el.id)                        //   //дизайблем кнопку пока не подгрузились данные
-                          // props.toggleIsFollowing(el.id, true)
-                          // usersAPI.getUnfollow(el.id).then(data => {//делаем с данными что-то
-                          //   console.log('unfollow')
-                          //   if (data.resultCode === 0) {
-                          //     props.unfollow(el.id)
-                          //   }
-                          //   //делаем кнопку активной после загрузки данных
-                          //   props.toggleIsFollowing(el.id, false)
-                          // })
+
                         }>Unfollow</button>
                     : <button disabled={props.followingInProgress.some(id => id === el.id)}
                               onClick={() => {
-                                console.log('click')
                                 return props.getFollowThunkCreator(el.id)
-                                // props.toggleIsFollowing(el.id, true)
-                                // usersAPI.getFollow(el.id).then(data => {
-                                //   if (data.resultCode === 0) {
-                                //     props.follow(el.id)
-                                //   }
-                                //   props.toggleIsFollowing(el.id, false)
-                                // })
                               }
                               }>Follow</button>}
                 </div>
