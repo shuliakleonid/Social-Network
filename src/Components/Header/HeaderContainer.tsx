@@ -9,7 +9,7 @@ type MapStateToProps = {
   login: string
 }
 
-type HeaderContainerPropsType = {
+export type HeaderContainerPropsType = {
   isAuth: boolean
   login: string
   getAuthUserData: () => void

@@ -3,9 +3,10 @@ import style from './Dialogs.module.css'
 import DialogItem from './DialogItem/DialogItem';
 import DialogItemMessage from './DialogMessage/DialogMesssage';
 import {DialogsPageType} from '../../types/entities';
-import {addMessageActionCreator, updateNewMessageTextActionCreator} from '../../redux/dialogs-reducer';
+import {Redirect} from 'react-router-dom'
 
 type PropsType = {
+  isAuth: boolean
   dialogsPages: DialogsPageType
   onSendMessageClick: () => void
   changeValueMessage: (value: string) => void
@@ -13,12 +14,12 @@ type PropsType = {
 
 const Dialogs = (props: PropsType) => {
   const onSendMessage = () => {
-   props.onSendMessageClick()
+    props.onSendMessageClick()
   }
   const changeValueMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
     props.changeValueMessage(e.currentTarget.value)
   }
-debugger
+  if (!props.isAuth) return <Redirect to={'/login'}/>
   return (
       <div className={style.dialogs}>
         <div className={style.itemList}>

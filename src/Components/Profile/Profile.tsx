@@ -36,7 +36,6 @@ const Profile = (props: ProfilePropsType) => {
     return <PreLoader/>
   }
   return (
-
       <>
         <img src={props.profilePage.profile.photos.large} alt=""/>
         <section className={style.wrapper}>

@@ -1,9 +1,10 @@
 import React from 'react';
-import {ActionType, DialogsPageType, StateType} from '../../types/entities';
+import {DialogsPageType} from '../../types/entities';
 import {addMessageActionCreator, updateNewMessageTextActionCreator} from '../../redux/dialogs-reducer';
 import Dialogs from './Dialogs';
 import {connect} from 'react-redux';
 import {Action, Dispatch} from 'redux';
+import {AppStateType} from '../../redux/redux-store';
 
 // type PropsType = {
 //   dialogsPages: DialogsPageType
@@ -30,10 +31,15 @@ const DialogContainer = () => {
 }
 */
 
-
-const mapStateToProps = (state: StateType) => {
+type MapStateToPropsType = {
+  dialogsPages: DialogsPageType
+  isAuth: boolean
+}
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
   return {
     dialogsPages: state.dialogsPages,
+    isAuth: state.auth.isAuth
+
   }
 }
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => {

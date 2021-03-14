@@ -5,9 +5,12 @@ import {connect} from 'react-redux';
 import Profile from './Profile';
 import {RouteComponentProps, withRouter} from 'react-router';
 import {AppStateType} from '../../redux/redux-store';
+import {InitialStateTypeAuthReducer} from '../../redux/auth-reducer';
+import {Redirect} from 'react-router-dom';
 
 type MatchStateDispatchToProps={
   profilePage:ProfilePagesType
+  isAuth:boolean
 }
 
 type PathParamsType = {
@@ -19,12 +22,13 @@ export interface ProfileContainerPropsType extends  RouteComponentProps<PathPara
   updateNewPostText: (text: string) => void
   // setUserProfile:(profile:ProfileAPIType)=> void
   getUserProfile:(userId:string)=>void
+  isAuth:boolean
 }
 
 class ProfileClass extends React.Component<ProfileContainerPropsType>{
 
   componentDidMount() {
-    debugger
+
     let userId = this.props.match.params.userId
     this.props.getUserProfile(userId)
   }
@@ -32,7 +36,10 @@ class ProfileClass extends React.Component<ProfileContainerPropsType>{
 
 
   render() {
-  return <Profile {...this.props} />
+
+     if (!this.props.isAuth) return <Redirect to={'/login'}/>
+
+    return <Profile {...this.props} />
 }
 }
 
@@ -72,7 +79,8 @@ class ProfileClass extends React.Component<ProfileContainerPropsType>{
 
 const mapStateToProps = (state: AppStateType):MatchStateDispatchToProps => {
   return {
-    profilePage: state.profilePage
+    profilePage: state.profilePage,
+    isAuth: state.auth.isAuth
   }
 }
 // const mapDispatchToProps = (dispatch: Dispatch<Action>) => {
