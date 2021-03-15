@@ -1,10 +1,13 @@
 import React from 'react';
 import {DialogsPageType} from '../../types/entities';
 import {addMessageActionCreator, updateNewMessageTextActionCreator} from '../../redux/dialogs-reducer';
-import Dialogs from './Dialogs';
+import Dialogs, {DialogsPropsType} from './Dialogs';
 import {connect} from 'react-redux';
 import {Action, Dispatch} from 'redux';
 import {AppStateType} from '../../redux/redux-store';
+import {Redirect} from 'react-router-dom';
+import {ProfileContainerPropsType} from '../Profile/ProfileContainer';
+import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 
 // type PropsType = {
 //   dialogsPages: DialogsPageType
@@ -39,7 +42,6 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
   return {
     dialogsPages: state.dialogsPages,
     isAuth: state.auth.isAuth
-
   }
 }
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => {
@@ -49,6 +51,10 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => {
 
   }
 }
+
+// const AuthRedirectComponent = withAuthRedirect(Dialogs)
+
+
 const DialogContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
 
 

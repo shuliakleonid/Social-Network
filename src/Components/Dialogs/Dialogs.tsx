@@ -5,14 +5,14 @@ import DialogItemMessage from './DialogMessage/DialogMesssage';
 import {DialogsPageType} from '../../types/entities';
 import {Redirect} from 'react-router-dom'
 
-type PropsType = {
+export type DialogsPropsType = {
   isAuth: boolean
   dialogsPages: DialogsPageType
   onSendMessageClick: () => void
   changeValueMessage: (value: string) => void
 }
 
-const Dialogs = (props: PropsType) => {
+const Dialogs = (props: DialogsPropsType) => {
   const onSendMessage = () => {
     props.onSendMessageClick()
   }

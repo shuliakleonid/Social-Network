@@ -1,16 +1,15 @@
 import React from 'react';
-import {ProfileAPIType, ProfilePagesType} from '../../types/entities';
+import {ProfilePagesType} from '../../types/entities';
 import {buttonAddPost, getUserProfile, updateNewPostText} from '../../redux/profile-reducer';
 import {connect} from 'react-redux';
 import Profile from './Profile';
 import {RouteComponentProps, withRouter} from 'react-router';
 import {AppStateType} from '../../redux/redux-store';
-import {InitialStateTypeAuthReducer} from '../../redux/auth-reducer';
-import {Redirect} from 'react-router-dom';
+import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 
 type MatchStateDispatchToProps={
   profilePage:ProfilePagesType
-  isAuth:boolean
+  // isAuth:boolean
 }
 
 type PathParamsType = {
@@ -20,7 +19,6 @@ export interface ProfileContainerPropsType extends  RouteComponentProps<PathPara
   profilePage: ProfilePagesType;
   buttonAddPost: () => void
   updateNewPostText: (text: string) => void
-  // setUserProfile:(profile:ProfileAPIType)=> void
   getUserProfile:(userId:string)=>void
   isAuth:boolean
 }
@@ -28,20 +26,15 @@ export interface ProfileContainerPropsType extends  RouteComponentProps<PathPara
 class ProfileClass extends React.Component<ProfileContainerPropsType>{
 
   componentDidMount() {
-
     let userId = this.props.match.params.userId
     this.props.getUserProfile(userId)
   }
-
-
-
   render() {
-
-     if (!this.props.isAuth) return <Redirect to={'/login'}/>
-
-    return <Profile {...this.props} />
+    return <Profile {...this.props}  />
 }
 }
+
+
 
 // type PropsType = {
 //   store: StateType;
@@ -79,8 +72,8 @@ class ProfileClass extends React.Component<ProfileContainerPropsType>{
 
 const mapStateToProps = (state: AppStateType):MatchStateDispatchToProps => {
   return {
-    profilePage: state.profilePage,
-    isAuth: state.auth.isAuth
+    profilePage: state.profilePage
+    // isAuth: state.auth.isAuth
   }
 }
 // const mapDispatchToProps = (dispatch: Dispatch<Action>) => {
@@ -91,5 +84,5 @@ const mapStateToProps = (state: AppStateType):MatchStateDispatchToProps => {
 
 const withUrlDataContainerComponent = withRouter(ProfileClass)
 
-export default connect(mapStateToProps, {getUserProfile,buttonAddPost,updateNewPostText})(withUrlDataContainerComponent)
+export default withAuthRedirect(connect(mapStateToProps, {getUserProfile,buttonAddPost,updateNewPostText})(withUrlDataContainerComponent))
 
