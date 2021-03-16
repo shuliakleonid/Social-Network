@@ -6,6 +6,7 @@ import Profile from './Profile';
 import {RouteComponentProps, withRouter} from 'react-router';
 import {AppStateType} from '../../redux/redux-store';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
+import {compose} from 'redux';
 
 type MatchStateDispatchToProps={
   profilePage:ProfilePagesType
@@ -82,7 +83,7 @@ const mapStateToProps = (state: AppStateType):MatchStateDispatchToProps => {
 //     updateNewPostText: (text: string) => dispatch(updateNewPostTextActionCreator(text))
 //   }
 
-const withUrlDataContainerComponent = withRouter(ProfileClass)
 
-export default withAuthRedirect(connect(mapStateToProps, {getUserProfile,buttonAddPost,updateNewPostText})(withUrlDataContainerComponent))
-
+export default compose<React.ComponentType>(connect(mapStateToProps, {getUserProfile,buttonAddPost,updateNewPostText}),withRouter,withAuthRedirect)(ProfileClass)//позволяет сделать последовательные вызовы функций compose(3),2,1)(старт)
+// const withUrlDataContainerComponent = withRouter(ProfileClass)
+// export default withAuthRedirect(connect(mapStateToProps, {getUserProfile,buttonAddPost,updateNewPostText})(withUrlDataContainerComponent))
