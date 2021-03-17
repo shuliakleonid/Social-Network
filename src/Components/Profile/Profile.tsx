@@ -3,6 +3,7 @@ import style from './SectionMain.module.css';
 import Posts from './My_Posts/Post';
 import PreLoader from '../Common/PreLoader/PreLoader';
 import {ProfilePagesType} from '../../types/entities';
+import {ProfileStatus} from './ProfileStatus/ProfileStatus';
 
 type ProfilePropsType = {
   profilePage: ProfilePagesType;
@@ -38,6 +39,7 @@ const Profile = (props: ProfilePropsType) => {
   return (
       <>
         <img src={props.profilePage.profile.photos.large} alt=""/>
+        <ProfileStatus/>
         <section className={style.wrapper}>
         <textarea
             onChange={onPostsChange}

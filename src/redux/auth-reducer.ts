@@ -15,7 +15,7 @@ const initialState = {
   id: 1,
   email: '1',
   login: '1',
-  isAuth: true
+  isAuth: false
 }
 
 export type InitialStateTypeAuthReducer = typeof initialState

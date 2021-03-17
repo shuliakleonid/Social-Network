@@ -4,22 +4,23 @@ import DialogItem from './DialogItem/DialogItem';
 import DialogItemMessage from './DialogMessage/DialogMesssage';
 import {DialogsPageType} from '../../types/entities';
 import {Redirect} from 'react-router-dom'
+import {updateNewMessageTextActionCreator} from '../../redux/dialogs-reducer';
 
 export type DialogsPropsType = {
   isAuth: boolean
   dialogsPages: DialogsPageType
-  onSendMessageClick: () => void
-  changeValueMessage: (value: string) => void
+  addMessageActionCreator: () => void
+  updateNewMessageTextActionCreator: (value: string) => void
 }
 
 const Dialogs = (props: DialogsPropsType) => {
   const onSendMessage = () => {
-    props.onSendMessageClick()
+    props.addMessageActionCreator()
   }
   const changeValueMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    props.changeValueMessage(e.currentTarget.value)
+    props.updateNewMessageTextActionCreator(e.currentTarget.value)
   }
-  if (!props.isAuth) return <Redirect to={'/login'}/>
+  // if (!props.isAuth) return <Redirect to={'/login'}/>
   return (
       <div className={style.dialogs}>
         <div className={style.itemList}>
