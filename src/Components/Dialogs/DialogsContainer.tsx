@@ -3,7 +3,7 @@ import {DialogsPageType} from '../../types/entities';
 import {addMessageActionCreator, updateNewMessageTextActionCreator} from '../../redux/dialogs-reducer';
 import Dialogs from './Dialogs';
 import {connect} from 'react-redux';
-import {Action, compose, Dispatch} from 'redux';
+import {compose} from 'redux';
 import {AppStateType} from '../../redux/redux-store';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 
