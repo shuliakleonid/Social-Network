@@ -8,12 +8,12 @@ import {ProfileStatus} from './ProfileStatus/ProfileStatus';
 type ProfilePropsType = {
   profilePage: ProfilePagesType;
   updateNewPostText: (text: string) => void
+  updateStatus: (text: string) => void
   getUserProfile: (userId: string) => void
   buttonAddPost: () => void
 }
 
 const Profile = (props: ProfilePropsType) => {
-  debugger
   const onAddPost = () => {
     props.buttonAddPost()
   }
@@ -39,7 +39,7 @@ const Profile = (props: ProfilePropsType) => {
   return (
       <>
         <img src={props.profilePage.profile.photos.large} alt=""/>
-        <ProfileStatus/>
+        <ProfileStatus status={props.profilePage.status} updateStatus={props.updateStatus}/>
         <section className={style.wrapper}>
         <textarea
             onChange={onPostsChange}

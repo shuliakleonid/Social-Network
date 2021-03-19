@@ -1,8 +1,14 @@
 import {addMessageActionCreator, updateNewMessageTextActionCreator} from '../redux/dialogs-reducer';
-import {buttonAddPost, setUserProfile, updateNewPostText} from '../redux/profile-reducer';
+import {
+  buttonAddPost,
+  setUpdateStatus,
+  setUserProfile,
+  setUserStatus,
+  updateNewPostText
+} from '../redux/profile-reducer';
 import {
   currentPageChoice,
-  follow, getFollowThunkCreator,
+  follow,
   setTotalUsersCount,
   setUsers,
   toggleIsFollowing,
@@ -27,6 +33,7 @@ export type ProfilePagesType = {
   posts: Array<PostType>
   newPostText: string
   profile: ProfileAPIType
+  status: string
 }
 export type PostType = {
   id: number
@@ -68,6 +75,8 @@ export type ActionType =
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof toggleIsFollowing>
     | ReturnType<typeof setAuthUserData>
+    | ReturnType<typeof setUserStatus>
+    | ReturnType<typeof setUpdateStatus>
 
 export type UsersApiPropsType = {
   id: number
@@ -95,8 +104,8 @@ export type UsersType = {
   // toggleIsLoading: (action: boolean) => void
   toggleIsFollowing: (id: number, isFetching: boolean) => void
   getUsersThunkCreator: (page: number, pageSize: number) => void
-  getFollowThunkCreator:(id:number)=>void
-  getUnFollowThunkCreator:(id:number)=>void
+  getFollowThunkCreator: (id: number) => void
+  getUnFollowThunkCreator: (id: number) => void
 }
 
 export type ProfileAPIType = {

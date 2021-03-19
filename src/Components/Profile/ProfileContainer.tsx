@@ -1,6 +1,12 @@
 import React from 'react';
 import {ProfilePagesType} from '../../types/entities';
-import {buttonAddPost, getUserProfile, updateNewPostText} from '../../redux/profile-reducer';
+import {
+  buttonAddPost,
+  getUserProfile,
+  getUserStatus,
+  updateNewPostText,
+  updateStatus
+} from '../../redux/profile-reducer';
 import {connect} from 'react-redux';
 import Profile from './Profile';
 import {RouteComponentProps, withRouter} from 'react-router';
@@ -21,6 +27,8 @@ export interface ProfileContainerPropsType extends  RouteComponentProps<PathPara
   buttonAddPost: () => void
   updateNewPostText: (text: string) => void
   getUserProfile:(userId:string)=>void
+  getUserStatus:(userId:string)=>void
+  updateStatus:(userId:string)=>void
   isAuth:boolean
 }
 
@@ -29,6 +37,7 @@ class ProfileClass extends React.Component<ProfileContainerPropsType>{
   componentDidMount() {
     let userId = this.props.match.params.userId
     this.props.getUserProfile(userId)
+    this.props.getUserStatus(userId)
   }
   render() {
     return <Profile {...this.props}  />
@@ -40,6 +49,7 @@ class ProfileClass extends React.Component<ProfileContainerPropsType>{
 const mapStateToProps = (state: AppStateType):MatchStateDispatchToProps => {
   return {
     profilePage: state.profilePage
+    // status: state.profilePage.status
   }
 }
 // const mapDispatchToProps = (dispatch: Dispatch<Action>) => {
@@ -49,6 +59,6 @@ const mapStateToProps = (state: AppStateType):MatchStateDispatchToProps => {
 //   }
 
 
-export default compose<React.ComponentType>(connect(mapStateToProps, {getUserProfile,buttonAddPost,updateNewPostText}),withRouter,withAuthRedirect)(ProfileClass)//позволяет сделать последовательные вызовы функций compose(3),2,1)(старт)
+export default compose<React.ComponentType>(connect(mapStateToProps, {getUserProfile,buttonAddPost,updateNewPostText,getUserStatus,updateStatus}),withRouter,withAuthRedirect)(ProfileClass)//позволяет сделать последовательные вызовы функций compose(3),2,1)(старт)
 // const withUrlDataContainerComponent = withRouter(ProfileClass)
 // export default withAuthRedirect(connect(mapStateToProps, {getUserProfile,buttonAddPost,updateNewPostText})(withUrlDataContainerComponent))

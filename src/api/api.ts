@@ -17,13 +17,27 @@ export const usersAPI = {
   getUnfollow(id = 1) {
     return instance.delete(`follow/${id}`).then(res => res.data)
   },
-  getProfile(userId =' 1') {
-    return instance.get(`profile/${userId}`).then(res => res.data)
-  },
-  getAuthentication() {
+  getProfile(userId = ' 1') {
+    console.warn('Obsolete method.Please use profileAPI object')
+    return profileAPI.getProfile(userId)
+    // return instance.get(`profile/${userId}`).then(res => res.data)
+  }
+}
+
+export const authAPI = {
+  me() {
     return instance.get('auth/me').then(res => res.data)
   }
 }
 
-
-
+export const profileAPI = {
+  getProfile(userId = ' 1') {
+    return instance.get(`profile/${userId}`).then(res => res.data)
+  },
+  getStatus(userId = '1') {
+    return instance.get(`profile/status/${userId}`).then(res => res.data)
+  },
+  updateStatus(status:string){
+ return instance.put(`profile/status`,{status}).then(res => res.data)
+  }
+}

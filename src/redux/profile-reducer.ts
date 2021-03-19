@@ -1,6 +1,6 @@
 import {ActionType, PostType, ProfileAPIType, ProfilePagesType} from '../types/entities';
-import {ADD_POST, SET_USERS_PROFILE, UPDATE_NEW_POST_TEXT} from '../constant';
-import {usersAPI} from '../api/api';
+import {ADD_POST, SET_UPDATE_USER_STATUS, SET_USER_STATUS, SET_USERS_PROFILE, UPDATE_NEW_POST_TEXT} from '../constant';
+import {profileAPI, usersAPI} from '../api/api';
 import {Dispatch} from 'redux';
 
 const initialState: ProfilePagesType = {
@@ -13,27 +13,28 @@ const initialState: ProfilePagesType = {
     {id: 6, name: 'Bob', message: 'Hi, Dude', likesCount: 11},
   ],
   newPostText: '',
-  profile:{
-    aboutMe: "я круто чувак 1001%",
+  profile: {
+    aboutMe: 'я круто чувак 1001%',
     contacts: {
-      facebook: "facebook.com",
+      facebook: 'facebook.com',
       website: null,
-      vk: "vk.com/dimych",
-      twitter: "https://twitter.com/@sdf",
-      instagram: "instagra.com/sds",
+      vk: 'vk.com/dimych',
+      twitter: 'https://twitter.com/@sdf',
+      instagram: 'instagra.com/sds',
       youtube: null,
-      github: "github.com",
+      github: 'github.com',
       mainLink: null
     },
     lookingForAJob: true,
-    lookingForAJobDescription: "не ищу, а дурачусь",
-    fullName: "samurai dimych",
+    lookingForAJobDescription: 'не ищу, а дурачусь',
+    fullName: 'samurai dimych',
     userId: 2,
     photos: {
-      small: "https://social-network.samuraijs.com/activecontent/images/users/2/user-small.jpg?v=0",
-      large: "https://social-network.samuraijs.com/activecontent/images/users/2/user.jpg?v=0"
+      small: 'https://social-network.samuraijs.com/activecontent/images/users/2/user-small.jpg?v=0',
+      large: 'https://social-network.samuraijs.com/activecontent/images/users/2/user.jpg?v=0'
     }
-  }
+  },
+  status: ''
 
 }
 export const profileReducer = (state = initialState, action: ActionType): ProfilePagesType => {
@@ -50,7 +51,11 @@ export const profileReducer = (state = initialState, action: ActionType): Profil
     case UPDATE_NEW_POST_TEXT:
       return {...state, newPostText: action.newText}
     case SET_USERS_PROFILE:
-      return {...state, profile:action.profile}
+      return {...state, profile: action.profile}
+    case SET_USER_STATUS:
+      return {...state, status: action.status}
+    case SET_UPDATE_USER_STATUS:
+      return {...state, status: action.status}
     default:
       return state
 
@@ -62,12 +67,31 @@ export const updateNewPostText = (newText: string) => (
     {type: UPDATE_NEW_POST_TEXT, newText: newText}
 ) as const //воспринимать объект как константу в TS
 export const setUserProfile = (profile: ProfileAPIType) => ({type: SET_USERS_PROFILE, profile}) as const
-export const getUserProfile = (userId:string) => (dispatch:Dispatch<ActionType>)=>{
+export const setUserStatus = (status: string) => ({type: SET_USER_STATUS, status}) as const
+export const setUpdateStatus = (status: string) => ({type: SET_UPDATE_USER_STATUS, status}) as const
+
+export const getUserProfile = (userId: string) => (dispatch: Dispatch<ActionType>) => {
   usersAPI.getProfile(userId)//делаем на сервер запрос о данных
       .then(data => {//делаем с данными что-то
+        console.log(data)
         dispatch(setUserProfile(data))
-})
+      })
+}
+export const getUserStatus = (userId: string) => (dispatch: Dispatch<ActionType>) => {
+  profileAPI.getStatus(userId)//делаем на сервер запрос о данных
+      .then(data => {//делаем с данными что-то
+        debugger
+        dispatch(setUserStatus(data))
+      })
+}
 
-
+export const updateStatus = (status: string) => (dispatch: Dispatch<ActionType>) => {
+  profileAPI.updateStatus(status)//делаем на сервер запрос о данных
+      .then(data => {
+        console.log(data.resultCode , 'data.resultCode')
+        if (data.resultCode === 0) {
+          dispatch(setUpdateStatus(status))
+        }
+      })
 }
 
