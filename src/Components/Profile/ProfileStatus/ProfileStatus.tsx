@@ -20,7 +20,7 @@ export const ProfileStatus = (props: ProfileStatusPropsType) => {
       getStatus(e.currentTarget.value)
       props.updateStatus(e.currentTarget.value)
     }
-    getValueInput('')
+    // getValueInput('')
     getEditMode(!editMode)
   }
   const setEditMode = () => {
