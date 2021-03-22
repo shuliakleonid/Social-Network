@@ -27,8 +27,6 @@ export type StoreType = {
   // _updateNewPostText: (newText: string) => void
   // _updateNewMessageText: (newText: string) => void
 }
-
-
 export type ProfilePagesType = {
   posts: Array<PostType>
   newPostText: string
@@ -51,7 +49,6 @@ export type DialogsPageType = {
   messages: Array<MessagesType>
   newMessageText: string
 }
-
 export type MessagesType = {
   id: number
   message: string
@@ -60,24 +57,6 @@ export type DialogsType = {
   id: number
   name: string
 }
-
-export type ActionType =
-    ReturnType<typeof updateNewPostText>
-    | ReturnType<typeof buttonAddPost>
-    | ReturnType<typeof updateNewMessageTextActionCreator>
-    | ReturnType<typeof addMessageActionCreator>
-    | ReturnType<typeof setUsers>
-    | ReturnType<typeof follow>
-    | ReturnType<typeof unfollow>
-    | ReturnType<typeof currentPageChoice>
-    | ReturnType<typeof setTotalUsersCount>
-    | ReturnType<typeof toggleIsLoading>
-    | ReturnType<typeof setUserProfile>
-    | ReturnType<typeof toggleIsFollowing>
-    | ReturnType<typeof setAuthUserData>
-    | ReturnType<typeof setUserStatus>
-    | ReturnType<typeof setUpdateStatus>
-
 export type UsersApiPropsType = {
   id: number
   name: string
@@ -107,7 +86,6 @@ export type UsersType = {
   getFollowThunkCreator: (id: number) => void
   getUnFollowThunkCreator: (id: number) => void
 }
-
 export type ProfileAPIType = {
   aboutMe: string
   contacts: {
@@ -129,3 +107,19 @@ export type ProfileAPIType = {
     large: string
   }
 }
+export type ActionType =
+    ReturnType<typeof updateNewPostText>
+    | ReturnType<typeof buttonAddPost>
+    | ReturnType<typeof updateNewMessageTextActionCreator>
+    | ReturnType<typeof addMessageActionCreator>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof follow>
+    | ReturnType<typeof unfollow>
+    | ReturnType<typeof currentPageChoice>
+    | ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof toggleIsLoading>
+    | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof toggleIsFollowing>
+    | ReturnType<typeof setAuthUserData>
+    | ReturnType<typeof setUserStatus>
+    | ReturnType<typeof setUpdateStatus>
