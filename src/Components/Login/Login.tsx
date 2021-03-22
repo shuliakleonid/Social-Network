@@ -1,9 +1,9 @@
 import React from 'react';
-import LoginForm from '../Login-form/Login-form';
+import LoginForm, {FormDataType} from '../Login-form/Login-form';
 import {reduxForm} from 'redux-form';
 
 export const Login = () => {
-  const onSubmit = (formData:any) => {
+  const onSubmit = (formData:FormDataType) => {
     console.log(formData)
   }
   return (
@@ -12,6 +12,6 @@ export const Login = () => {
         <LoginReduxForm onSubmit={onSubmit}/>
       </div>)
 };
-export const LoginReduxForm = reduxForm({  form: 'login'})(LoginForm)
+export const LoginReduxForm = reduxForm<FormDataType>({  form: 'login'})(LoginForm)
 
 
