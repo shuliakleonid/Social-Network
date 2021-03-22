@@ -27,16 +27,16 @@ export const dialogsReducer = (state = initialState, action: ActionType): Dialog
     case SEND_MESSAGE:
       const newMessage: MessagesType = {
         id: Date.now(),
-        message: state.newMessageText
+        message: action.text
       }
       // const stateCopy = {...state}
       // stateCopy.messages = [...state.messages]
-      return {...state, messages: [...state.messages, newMessage], newMessageText: ''}
+      return {...state, messages: [...state.messages, newMessage]}
       // stateCopy.messages.push();
       // stateCopy.newMessageText = '';
       // return stateCopy;
-    case UPDATE_NEW_MESSAGE_BODY:
-      return {...state, newMessageText: action.newText}
+    // case UPDATE_NEW_MESSAGE_BODY:
+    //   return {...state, newMessageText: action.newText}
       // stateCopy.newMessageText = action.newText;
       // return stateCopy;
     default:
@@ -44,7 +44,7 @@ export const dialogsReducer = (state = initialState, action: ActionType): Dialog
   }
 }
 
-export const addMessageActionCreator = () => ({type: SEND_MESSAGE}) as const
-export const updateNewMessageTextActionCreator = (newText: string) => (
-    {type: UPDATE_NEW_MESSAGE_BODY, newText: newText}
-) as const //воспринимать объект как константу в TS
+export const addMessageActionCreator = (text:string) => ({type: SEND_MESSAGE,text}) as const
+// export const updateNewMessageTextActionCreator = (newText: string) => (
+//     {type: UPDATE_NEW_MESSAGE_BODY, newText: newText}
+// ) as const //воспринимать объект как константу в TS

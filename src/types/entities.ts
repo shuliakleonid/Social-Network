@@ -1,10 +1,9 @@
-import {addMessageActionCreator, updateNewMessageTextActionCreator} from '../redux/dialogs-reducer';
+import {addMessageActionCreator} from '../redux/dialogs-reducer';
 import {
   buttonAddPost,
   setUpdateStatus,
   setUserProfile,
   setUserStatus,
-  updateNewPostText
 } from '../redux/profile-reducer';
 import {
   currentPageChoice,
@@ -108,9 +107,7 @@ export type ProfileAPIType = {
   }
 }
 export type ActionType =
-    ReturnType<typeof updateNewPostText>
-    | ReturnType<typeof buttonAddPost>
-    | ReturnType<typeof updateNewMessageTextActionCreator>
+      ReturnType<typeof buttonAddPost>
     | ReturnType<typeof addMessageActionCreator>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof follow>

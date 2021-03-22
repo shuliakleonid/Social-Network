@@ -4,7 +4,6 @@ import {
   buttonAddPost,
   getUserProfile,
   getUserStatus,
-  updateNewPostText,
   updateStatus
 } from '../../redux/profile-reducer';
 import {connect} from 'react-redux';
@@ -24,8 +23,8 @@ type PathParamsType = {
 }
 export interface ProfileContainerPropsType extends  RouteComponentProps<PathParamsType>  {
   profilePage: ProfilePagesType;
-  buttonAddPost: () => void
-  updateNewPostText: (text: string) => void
+  buttonAddPost: (text:string) => void
+  // updateNewPostText: (text: string) => void
   getUserProfile:(userId:string)=>void
   getUserStatus:(userId:string)=>void
   updateStatus:(userId:string)=>void
@@ -59,6 +58,6 @@ const mapStateToProps = (state: AppStateType):MatchStateDispatchToProps => {
 //   }
 
 
-export default compose<React.ComponentType>(connect(mapStateToProps, {getUserProfile,buttonAddPost,updateNewPostText,getUserStatus,updateStatus}),withRouter,withAuthRedirect)(ProfileClass)//позволяет сделать последовательные вызовы функций compose(3),2,1)(старт)
+export default compose<React.ComponentType>(connect(mapStateToProps, {getUserProfile,buttonAddPost,getUserStatus,updateStatus}),withRouter,withAuthRedirect)(ProfileClass)//позволяет сделать последовательные вызовы функций compose(3),2,1)(старт)
 // const withUrlDataContainerComponent = withRouter(ProfileClass)
 // export default withAuthRedirect(connect(mapStateToProps, {getUserProfile,buttonAddPost,updateNewPostText})(withUrlDataContainerComponent))

@@ -10,8 +10,7 @@ export const ProfileStatus = (props: ProfileStatusPropsType) => {
   const [status, getStatus] = useState<string>(props.status)
   const [valueInput, getValueInput] = useState<string>()
   const [editMode, getEditMode] = useState<boolean>(true)
-  debugger
-  console.log('status',status)
+
   const changeValue = (e: ChangeEvent<HTMLInputElement>) => {
     getValueInput(e.currentTarget.value)
   }

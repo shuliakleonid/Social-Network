@@ -4,24 +4,30 @@ import Posts from './My_Posts/Post';
 import PreLoader from '../Common/PreLoader/PreLoader';
 import {ProfilePagesType} from '../../types/entities';
 import {ProfileStatus} from './ProfileStatus/ProfileStatus';
+import TextForm, {TextFormType} from '../Text-form/TextForm';
+import {reduxForm} from 'redux-form';
 
 type ProfilePropsType = {
   profilePage: ProfilePagesType;
-  updateNewPostText: (text: string) => void
+  // updateNewPostText: (text: string) => void
   updateStatus: (text: string) => void
   getUserProfile: (userId: string) => void
-  buttonAddPost: () => void
+  buttonAddPost: (text:string) => void
 }
 
 const Profile = (props: ProfilePropsType) => {
-  const onAddPost = () => {
-    props.buttonAddPost()
-  }
-  const onPostsChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    if (e.currentTarget.value) {
-      props.updateNewPostText(e.currentTarget.value)
-    }
-  }
+  // const onAddPost = () => {
+  //   props.buttonAddPost()
+  // }
+  // const onPostsChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  //   if (e.currentTarget.value) {
+  //     props.updateNewPostText(e.currentTarget.value)
+  //   }
+  // }
+const addNewMessage = (value:any) => {
+  console.log(value)
+  props.buttonAddPost(value.addPost)
+}
 
   let postsMessage = props.profilePage.posts.map((i) => {
     return <Posts
@@ -32,7 +38,6 @@ const Profile = (props: ProfilePropsType) => {
 
     />
   })
-
   if (!props.profilePage.profile) {
     return <PreLoader/>
   }
@@ -41,17 +46,20 @@ const Profile = (props: ProfilePropsType) => {
         <img src={props.profilePage.profile.photos.large} alt=""/>
         <ProfileStatus status={props.profilePage.status} updateStatus={props.updateStatus}/>
         <section className={style.wrapper}>
-        <textarea
-            onChange={onPostsChange}
-            value={props.profilePage.newPostText}
-            placeholder='Add message'/>
-          <button
-              onClick={onAddPost}
-          >Add post
-          </button>
+          <AddPost nameForm={'addPost'} placeholder={'Add You Post'} onSubmit={addNewMessage} />
+        {/*<textarea*/}
+        {/*    onChange={onPostsChange}*/}
+        {/*    value={props.profilePage.newPostText}*/}
+        {/*    placeholder='Add message'/>*/}
+        {/*  <button*/}
+        {/*      onClick={onAddPost}*/}
+        {/*  >Add post*/}
+        {/*  </button>*/}
           {postsMessage}
         </section>
       </>
   )
 }
-export default Profile;
+const AddPost = reduxForm<{},TextFormType>({  form: 'addProfileMessage'})(TextForm)
+
+export default Profile

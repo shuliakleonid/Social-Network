@@ -1,6 +1,6 @@
 import React from 'react';
 import {DialogsPageType} from '../../types/entities';
-import {addMessageActionCreator, updateNewMessageTextActionCreator} from '../../redux/dialogs-reducer';
+import {addMessageActionCreator} from '../../redux/dialogs-reducer';
 import Dialogs from './Dialogs';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
@@ -28,4 +28,4 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 // const DialogContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
 
 
-export default compose<React.ComponentType>(connect(mapStateToProps, {addMessageActionCreator,updateNewMessageTextActionCreator}),withAuthRedirect)(Dialogs)
+export default compose<React.ComponentType>(connect(mapStateToProps, {addMessageActionCreator}),withAuthRedirect)(Dialogs)

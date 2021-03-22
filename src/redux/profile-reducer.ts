@@ -43,13 +43,13 @@ export const profileReducer = (state = initialState, action: ActionType): Profil
       const newPost: PostType = {
         id: Date.now(),
         name: 'Anonim',
-        message: state.newPostText,
+        message: action.text,
         likesCount: Math.floor(Math.random() * 10) * Math.floor(Math.random() * 10)
       };
-      return {...state, posts: [...state.posts, newPost], newPostText: ''}
+      return {...state, posts: [...state.posts, newPost], }
     }
-    case UPDATE_NEW_POST_TEXT:
-      return {...state, newPostText: action.newText}
+    // case UPDATE_NEW_POST_TEXT:
+    //   return {...state, newPostText: action.newText}
     case SET_USERS_PROFILE:
       return {...state, profile: action.profile}
     case SET_USER_STATUS:
@@ -62,10 +62,10 @@ export const profileReducer = (state = initialState, action: ActionType): Profil
   }
 }
 
-export const buttonAddPost = () => ({type: ADD_POST}) as const
-export const updateNewPostText = (newText: string) => (
-    {type: UPDATE_NEW_POST_TEXT, newText: newText}
-) as const //воспринимать объект как константу в TS
+export const buttonAddPost = (text:string) => ({type: ADD_POST,text}) as const
+// export const updateNewPostText = (newText: string) => (
+//     {type: UPDATE_NEW_POST_TEXT, newText: newText}
+// ) as const //воспринимать объект как константу в TS
 export const setUserProfile = (profile: ProfileAPIType) => ({type: SET_USERS_PROFILE, profile}) as const
 export const setUserStatus = (status: string) => ({type: SET_USER_STATUS, status}) as const
 export const setUpdateStatus = (status: string) => ({type: SET_UPDATE_USER_STATUS, status}) as const
