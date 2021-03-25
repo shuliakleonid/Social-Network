@@ -22,7 +22,7 @@ const Dialogs = (props: DialogsPropsType) => {
   // }
 
   const addMessageText = (value:any) => {
-    console.log(value.addDialog,'dialogs')
+    // console.log(value.addDialog,'dialogs')
     props.addMessageActionCreator(value.addDialog)
   }
 

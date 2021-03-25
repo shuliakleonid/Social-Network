@@ -1,0 +1,7 @@
+.formControl {
+    border: 2px solid #1423a4;
+}
+
+.error {
+    border: 2px solid red;
+}
