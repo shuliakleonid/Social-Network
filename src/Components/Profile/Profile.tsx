@@ -9,21 +9,13 @@ import {reduxForm} from 'redux-form';
 
 type ProfilePropsType = {
   profilePage: ProfilePagesType;
-  // updateNewPostText: (text: string) => void
   updateStatus: (text: string) => void
   getUserProfile: (userId: string) => void
   buttonAddPost: (text:string) => void
 }
 
 const Profile = (props: ProfilePropsType) => {
-  // const onAddPost = () => {
-  //   props.buttonAddPost()
-  // }
-  // const onPostsChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-  //   if (e.currentTarget.value) {
-  //     props.updateNewPostText(e.currentTarget.value)
-  //   }
-  // }
+
 const addNewMessage = (value:any) => {
   console.log(value)
   props.buttonAddPost(value.addPost)
@@ -47,14 +39,6 @@ const addNewMessage = (value:any) => {
         <ProfileStatus status={props.profilePage.status} updateStatus={props.updateStatus}/>
         <section className={style.wrapper}>
           <AddPost nameForm={'addPost'} placeholder={'Add You Post'} onSubmit={addNewMessage} />
-        {/*<textarea*/}
-        {/*    onChange={onPostsChange}*/}
-        {/*    value={props.profilePage.newPostText}*/}
-        {/*    placeholder='Add message'/>*/}
-        {/*  <button*/}
-        {/*      onClick={onAddPost}*/}
-        {/*  >Add post*/}
-        {/*  </button>*/}
           {postsMessage}
         </section>
       </>

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {ProfileAPIType} from '../types/entities';
 
 const instance = axios.create({
   withCredentials: true,
@@ -27,17 +28,23 @@ export const usersAPI = {
 export const authAPI = {
   me() {
     return instance.get('auth/me').then(res => res.data)
+  },
+  login(email: string, password: string, rememberMe = false) {
+    return instance.post(`auth/login`, {email, password, rememberMe}).then(res => res.data)
+  },
+  logOut() {
+    return instance.delete(`auth/login`).then(res => res.data)
   }
 }
 
 export const profileAPI = {
   getProfile(userId = ' 1') {
-    return instance.get(`profile/${userId}`).then(res => res.data)
+    return instance.get<ProfileAPIType>(`profile/${userId}`).then(res => res.data)
   },
   getStatus(userId = '1') {
     return instance.get(`profile/status/${userId}`).then(res => res.data)
   },
-  updateStatus(status:string){
- return instance.put(`profile/status`,{status}).then(res => res.data)
+  updateStatus(status: string) {
+    return instance.put(`profile/status`, {status}).then(res => res.data)
   }
 }
