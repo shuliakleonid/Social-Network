@@ -17,7 +17,7 @@ type ProfilePropsType = {
 const Profile = (props: ProfilePropsType) => {
 
 const addNewMessage = (value:any) => {
-  console.log(value)
+
   props.buttonAddPost(value.addPost)
 }
 

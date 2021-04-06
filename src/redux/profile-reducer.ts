@@ -35,7 +35,6 @@ const initialState: ProfilePagesType = {
     }
   },
   status: ''
-
 }
 export const profileReducer = (state = initialState, action: ActionType): ProfilePagesType => {
   switch (action.type) {

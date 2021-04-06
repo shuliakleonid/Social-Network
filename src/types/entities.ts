@@ -15,6 +15,7 @@ import {
   unfollow
 } from '../redux/users-reducer';
 import {setAuthUserData} from '../redux/auth-reducer';
+import {initializedSuccess} from '../redux/app-reducer';
 
 export type StoreType = {
   _state: StateType
@@ -120,3 +121,4 @@ export type ActionType =
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof setUserStatus>
     | ReturnType<typeof setUpdateStatus>
+    | ReturnType<typeof initializedSuccess>

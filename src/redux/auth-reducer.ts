@@ -1,9 +1,8 @@
 import {SET_USER_DATA} from '../constant';
 import {ActionType} from '../types/entities';
-import {Dispatch} from 'redux';
 import {authAPI} from '../api/api';
 import {ThunkAction} from 'redux-thunk';
-
+import {stopSubmit} from 'redux-form';
 
 export interface DataStateType {
   id: number
@@ -36,8 +35,9 @@ const authReducer = (state: InitialStateTypeAuthReducer = initialState, action: 
 }
 export const setAuthUserData = (payload: DataStateType) => ({type: SET_USER_DATA, payload}) as const
 
-export const getAuthUserData = (): ThunkAction<void, InitialStateTypeAuthReducer, unknown, ActionType> => (dispatch) => {
-  authAPI.me()
+export const getAuthUserData = (): ThunkAction<void, InitialStateTypeAuthReducer, unknown, ActionType> =>
+    (dispatch) => {
+ return authAPI.me()
       .then((data) => {
         if (data.resultCode === 0) {
           const {id, email, login} = data.data
@@ -46,21 +46,31 @@ export const getAuthUserData = (): ThunkAction<void, InitialStateTypeAuthReducer
         }
       })
 }
-export const login = ({email, password, rememberMe}: loginType): ThunkAction<void, InitialStateTypeAuthReducer, unknown, ActionType> => (dispatch) => {
+
+export const login = ({
+                        email,
+                        password,
+                        rememberMe
+                      }: loginType): ThunkAction<void, InitialStateTypeAuthReducer, unknown, ActionType> => (dispatch) => {
+
   authAPI.login(email, password, rememberMe)
       .then((data) => {
         if (data.resultCode === 0) {
           dispatch(getAuthUserData())
+        }else {
+          console.log(data)
+          const message = data.messages.length > 0 ? data.messages[0]:'Some error'
+          dispatch(stopSubmit('login',{_error:message}))
         }
       })
 }
 
-  export const logOut = (): ThunkAction<void, InitialStateTypeAuthReducer, unknown, ActionType> => (dispatch) => {
-    authAPI.logOut()
-        .then((data) => {
-          if (data.resultCode === 0) {
-            dispatch(setAuthUserData({id:0, email:'null', login:'Please Login', isAuth:false}))
-          }
-        })
-  }
-  export default authReducer
+export const logOut = (): ThunkAction<void, InitialStateTypeAuthReducer, unknown, ActionType> => (dispatch) => {
+  authAPI.logOut()
+      .then((data) => {
+        if (data.resultCode === 0) {
+          dispatch(setAuthUserData({id: 0, email: 'null', login: 'Please Login', isAuth: false}))
+        }
+      })
+}
+export default authReducer
