@@ -5,18 +5,23 @@ import {
   follow,
   getFollowThunkCreator,
   getUnFollowThunkCreator,
-  getUsersThunkCreator,
+  requestUsers,
   InitialStateType,
-  setTotalUsersCount,
-  setUsers,
   toggleIsFollowing,
-  toggleIsLoading,
   unfollow
 } from '../../redux/users-reducer';
 import Users from './Users';
 import {UsersType} from '../../types/entities';
 import PreLoader from '../Common/PreLoader/PreLoader';
 import {AppStateType} from '../../redux/redux-store';
+import {
+  getCurrentPage,
+  getFollowingInProgress,
+  getIsLoading,
+  getPageSize,
+  getTotalUsersCount,
+  getUsers
+} from '../../redux/users-selectors';
 
 
 class UsersClass extends React.Component<UsersType> {//конструктор и супер можно не писать оно происходит автоматически
@@ -69,64 +74,22 @@ class UsersClass extends React.Component<UsersType> {//конструктор и
 
 const mapStateToProps = (state: AppStateType): InitialStateType => {//принимает глобальный стэйт целиком
   return {
-    users: state.usersPages.users,
-    pageSize: state.usersPages.pageSize,
-    totalUsersCount: state.usersPages.totalUsersCount,
-    currentPage: state.usersPages.currentPage,
-    isLoading: state.usersPages.isLoading,
-    followingInProgress: state.usersPages.followingInProgress
+    users:getUsers(state) ,
+    pageSize: getPageSize(state),
+    totalUsersCount: getTotalUsersCount(state),
+    currentPage: getCurrentPage(state),
+    isLoading: getIsLoading(state),
+    followingInProgress: getFollowingInProgress(state)
   }
 }
-
-/*const mapDispatchToProps = (dispatch: Dispatch<Action>) => {//передает дочерней компненте колбэки
-  return {
-    follow: (userId: number) => {
-      dispatch(followAC(userId))
-    },
-    unfollow: (userId: number) => {
-      dispatch(unfollowAC(userId))
-    },
-    setUsers: (users: Array<UsersApiPropsType>) => {
-      dispatch(setUsersAC(users))
-    },
-    currentPageChoice: (page: number) => {
-      dispatch(currentPageAC(page))
-    },
-    setTotalUsersCount: (totalCount: number) => {
-      dispatch(setTotalUsersCountAC(totalCount))
-    },
-    toggleIsLoading:(action:boolean)=>{
-      dispatch(setLoadingAC(action))
-    }
-  }*/
-// рефакторинг этого кода выглядит как
-/*follow:followAC,
-    unfollow:unfollowAC,
-    setUsers:setUsersAC,
-    currentPageChoice: currentPageAC,
-    setTotalUsersCount: setTotalUsersCountAC,
-    toggleIsLoading:setLoadingAC
-    // рефактор этого кода выглядит так
-    follow,
-    unfollow,
-    setUsers,
-    currentPageChoice,
-    setTotalUsersCount,
-    toggleIsLoading
-*/
-
 
 export default connect(mapStateToProps,
     {
       follow,
       unfollow,
-      // setUsers,
       currentPageChoice,
-      // setTotalUsersCount,
-      // toggleIsLoading,
       toggleIsFollowing,
-
-      getUsersThunkCreator,
+      getUsersThunkCreator: requestUsers,
       getFollowThunkCreator,
       getUnFollowThunkCreator
     })(UsersClass);

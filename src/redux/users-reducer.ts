@@ -150,10 +150,11 @@ export const setTotalUsersCount = (totalCount: number) => ({type: SET_TOTAL_USER
 
 
 // создаем санки
-export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
+export const requestUsers = (page: number, pageSize: number) => {
   return (dispatch: Dispatch<ActionType>) => {//Thunk это функция которая  делает ассинхронную работу и делает внутри кучу диспатчей
     dispatch(toggleIsLoading(true))// включаем спинер при загрузке
-    usersAPI.getUsers(currentPage, pageSize)//делаем на сервер запрос о данных
+    dispatch(currentPageChoice(page))
+    usersAPI.getUsers(page, pageSize)//делаем на сервер запрос о данных
         .then(data => {//делаем с данными что-то
           console.log(data.items)
           dispatch(setUsers(data.items))
