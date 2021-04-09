@@ -20,7 +20,7 @@ import {
   getIsLoading,
   getPageSize,
   getTotalUsersCount,
-  getUsers
+   getUsersSuperSelector
 } from '../../redux/users-selectors';
 
 
@@ -74,7 +74,8 @@ class UsersClass extends React.Component<UsersType> {//конструктор и
 
 const mapStateToProps = (state: AppStateType): InitialStateType => {//принимает глобальный стэйт целиком
   return {
-    users:getUsers(state) ,
+    users:getUsersSuperSelector(state) ,
+    // users:getUsers(state) ,
     pageSize: getPageSize(state),
     totalUsersCount: getTotalUsersCount(state),
     currentPage: getCurrentPage(state),
