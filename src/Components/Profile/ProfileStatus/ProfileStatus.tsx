@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 
 type ProfileStatusPropsType = {
   status: string
@@ -7,30 +7,37 @@ type ProfileStatusPropsType = {
 
 
 export const ProfileStatus = (props: ProfileStatusPropsType) => {
-  const [status, getStatus] = useState<string>(props.status)
-  const [valueInput, getValueInput] = useState<string>()
-  const [editMode, getEditMode] = useState<boolean>(true)
+  const [status, setStatus] = useState<string>(props.status)
+  const [valueInput, setValueInput] = useState<string>('')
+  const [editMode, setEditMode] = useState<boolean>(true)
+
+  useEffect(()=>{
+    setStatus(props.status )
+  },[props.status])
 
   const changeValue = (e: ChangeEvent<HTMLInputElement>) => {
-    getValueInput(e.currentTarget.value)
+    setValueInput(e.currentTarget.value)
   }
   const changeStatus = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.currentTarget.value) {
-      getStatus(e.currentTarget.value)
+      setStatus(e.currentTarget.value)
       props.updateStatus(e.currentTarget.value)
     }
-    // getValueInput('')
-    getEditMode(!editMode)
+    setEditMode(!editMode)
   }
-  const setEditMode = () => {
-    getEditMode(!editMode)
+  const getEditMode = () => {
+    setEditMode(!editMode)
   }
+
+
+
+
   return (
       <div>
         {
           editMode
               ? <div>
-                <p onDoubleClick={setEditMode}>{status}</p>
+                <p onDoubleClick={getEditMode}>{status}</p>
               </div>
               : <div>
                 <input value={valueInput} type="text" onChange={changeValue} onBlur={changeStatus}/>
