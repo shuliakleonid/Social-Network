@@ -14,10 +14,9 @@ type ProfilePropsType = {
   buttonAddPost: (text:string) => void
 }
 
-const Profile = (props: ProfilePropsType) => {
+const Profile = React.memo((props: ProfilePropsType) => {
 
 const addNewMessage = (value:any) => {
-
   props.buttonAddPost(value.addPost)
 }
 
@@ -43,7 +42,7 @@ const addNewMessage = (value:any) => {
         </section>
       </>
   )
-}
+})
 const AddPost = reduxForm<{},TextFormType>({  form: 'addProfileMessage'})(TextForm)
 
 export default Profile

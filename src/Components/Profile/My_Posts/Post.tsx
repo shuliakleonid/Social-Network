@@ -9,7 +9,6 @@ type TypeProps = {
 
 const Posts = (props: TypeProps) => {
   return (
-
       <div>
         <PostItem message={props.message} like={props.like} key={props.id}/>
       </div>
