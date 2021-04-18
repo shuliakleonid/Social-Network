@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import style from './SectionMain.module.css';
 import Posts from './My_Posts/Post';
 import PreLoader from '../Common/PreLoader/PreLoader';

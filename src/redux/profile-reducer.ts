@@ -1,5 +1,5 @@
 import {ActionType, PostType, ProfileAPIType, ProfilePagesType} from '../types/entities';
-import {ADD_POST, SET_UPDATE_USER_STATUS, SET_USER_STATUS, SET_USERS_PROFILE, UPDATE_NEW_POST_TEXT} from '../constant';
+import {ADD_POST, DELETE_POST, SET_UPDATE_USER_STATUS, SET_USER_STATUS, SET_USERS_PROFILE} from '../constant';
 import {profileAPI, usersAPI} from '../api/api';
 import {Dispatch} from 'redux';
 
@@ -45,23 +45,26 @@ export const profileReducer = (state = initialState, action: ActionType): Profil
         message: action.text,
         likesCount: Math.floor(Math.random() * 10) * Math.floor(Math.random() * 10)
       };
-      return {...state, posts: [...state.posts, newPost], }
+      return {...state, posts: [...state.posts, newPost],}
     }
-    // case UPDATE_NEW_POST_TEXT:
-    //   return {...state, newPostText: action.newText}
+      // case UPDATE_NEW_POST_TEXT:
+      //   return {...state, newPostText: action.newText}
     case SET_USERS_PROFILE:
       return {...state, profile: action.profile}
     case SET_USER_STATUS:
       return {...state, status: action.status}
     case SET_UPDATE_USER_STATUS:
       return {...state, status: action.status}
+    case DELETE_POST:
+      return {...state, posts: state.posts.filter(post => post.id !== action.id)}
     default:
       return state
 
   }
 }
 
-export const buttonAddPost = (text:string) => ({type: ADD_POST,text}) as const
+export const buttonAddPost = (text: string) => ({type: ADD_POST, text}) as const
+export const deletePost = (id: number) => ({type: DELETE_POST, id}) as const
 // export const updateNewPostText = (newText: string) => (
 //     {type: UPDATE_NEW_POST_TEXT, newText: newText}
 // ) as const //воспринимать объект как константу в TS
@@ -87,7 +90,7 @@ export const getUserStatus = (userId: string) => (dispatch: Dispatch<ActionType>
 export const updateStatus = (status: string) => (dispatch: Dispatch<ActionType>) => {
   profileAPI.updateStatus(status)//делаем на сервер запрос о данных
       .then(data => {
-        console.log(data.resultCode , 'data.resultCode')
+        console.log(data.resultCode, 'data.resultCode')
         if (data.resultCode === 0) {
           dispatch(setUpdateStatus(status))
         }
