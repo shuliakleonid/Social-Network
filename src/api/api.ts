@@ -1,6 +1,33 @@
 import axios from 'axios';
 import {ProfileAPIType} from '../types/entities';
 
+type ResponseType<T> = {
+  resultCode: number
+  messages: Array<string>
+  data: T
+}
+type LoginType = {
+  id: number
+  email: string
+  login: string
+}
+export type UserDataType = {
+  name: string
+  id: number
+  photos: {
+    small: null | string
+    large: null |string
+  },
+  status: null |string
+  followed: boolean
+}
+
+type UsersRequestType = {
+  items:Array<UserDataType>
+  totalCount:number
+  error:string
+}
+
 const instance = axios.create({
   withCredentials: true,
   baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -9,31 +36,34 @@ const instance = axios.create({
 
 export const usersAPI = {
   getUsers(currentPage = 1, pageSize = 10) {
-    return instance.get(`users?page=${currentPage}&count=${pageSize}`, {withCredentials: true})
+    return instance.get<UsersRequestType>(`users?page=${currentPage}&count=${pageSize}`)
         .then(response => response.data)
   },
   getFollow(id = 1) {
-    return instance.post(`follow/${id}`, {}).then(res => res.data)
+    return instance.post<ResponseType<{}>>(`follow/${id}`, {})
+        .then(res => res.data)
   },
   getUnfollow(id = 1) {
-    return instance.delete(`follow/${id}`).then(res => res.data)
+    return instance.delete<ResponseType<{}>>(`follow/${id}`)
+        .then(res => res.data)
   },
   getProfile(userId = ' 1') {
-    console.warn('Obsolete method.Please use profileAPI object')
     return profileAPI.getProfile(userId)
-    // return instance.get(`profile/${userId}`).then(res => res.data)
   }
 }
 
 export const authAPI = {
   me() {
-    return instance.get('auth/me').then(res => res.data)
+    return instance.get<ResponseType<LoginType>>('auth/me')
+        .then(res => res.data)
   },
   login(email: string, password: string, rememberMe = false) {
-    return instance.post(`auth/login`, {email, password, rememberMe}).then(res => res.data)
+    return instance.post<ResponseType<{ userId: number }>>(`auth/login`, {email, password, rememberMe})
+        .then(res => res.data)
   },
   logOut() {
-    return instance.delete(`auth/login`).then(res => res.data)
+    return instance.delete<ResponseType<{}>>(`auth/login`)
+        .then(res => res.data)
   }
 }
 

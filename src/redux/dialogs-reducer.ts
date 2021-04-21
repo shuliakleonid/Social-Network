@@ -1,5 +1,5 @@
 import {ActionType, DialogsPageType, MessagesType} from '../types/entities';
-import {SEND_MESSAGE, UPDATE_NEW_MESSAGE_BODY} from '../constant';
+import {SEND_MESSAGE} from '../constant';
 
 const initialState: DialogsPageType = {
   dialogs: [
@@ -22,29 +22,16 @@ const initialState: DialogsPageType = {
 }
 
 export const dialogsReducer = (state = initialState, action: ActionType): DialogsPageType => {
-  // let stateCopy:DialogsPageType = {...state}
   switch (action.type) {
     case SEND_MESSAGE:
       const newMessage: MessagesType = {
         id: Date.now(),
         message: action.text
       }
-      // const stateCopy = {...state}
-      // stateCopy.messages = [...state.messages]
       return {...state, messages: [...state.messages, newMessage]}
-      // stateCopy.messages.push();
-      // stateCopy.newMessageText = '';
-      // return stateCopy;
-    // case UPDATE_NEW_MESSAGE_BODY:
-    //   return {...state, newMessageText: action.newText}
-      // stateCopy.newMessageText = action.newText;
-      // return stateCopy;
     default:
       return state;
   }
 }
 
 export const addMessageActionCreator = (text:string) => ({type: SEND_MESSAGE,text}) as const
-// export const updateNewMessageTextActionCreator = (newText: string) => (
-//     {type: UPDATE_NEW_MESSAGE_BODY, newText: newText}
-// ) as const //воспринимать объект как константу в TS
