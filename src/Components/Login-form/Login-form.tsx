@@ -1,26 +1,25 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Field, InjectedFormProps} from 'redux-form';
 import Input from '../Common/Forms-controls/InputControls';
 
 export type FormDataType = {
-  email:string
-  password:string
-  rememberMe:boolean
-  error:string
+  email: string
+  password: string
+  rememberMe: boolean
+  error: string
 }
 
-const LoginForm:React.FC<InjectedFormProps<FormDataType>> = (props) => {
-  console.log(props.error)
+const LoginForm: FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
   return (
       <>
-        <form onSubmit={props.handleSubmit}>
-          <Field placeholder='Email' type="text" component={Input} name='email'/>
+        <form onSubmit={handleSubmit}>
+          <Field placeholder="Email" type="text" component={Input} name="email"/>
           <div>
-            <Field placeholder='Password' type="password" component={Input} name='password'/>
+            <Field placeholder="Password" type="password" component={Input} name="password"/>
           </div>
-          <Field type="checkbox" component='input' name='rememberMe'/><span> Remember Me!</span><br/>
-          {props.error && <div style={{border: '1px solid red'}}>
-            {props.error}
+          <Field type="checkbox" component="input" name="rememberMe"/><span> Remember Me!</span><br/>
+          {error && <div style={{border: '1px solid red'}}>
+            {error}
           </div>}
           <button>Login</button>
         </form>

@@ -2,6 +2,7 @@ import React from 'react';
 import {Field, InjectedFormProps} from 'redux-form';
 import {maxLengthCreator, required} from '../../utils/validators/validators';
 import Textarea from '../Common/Forms-controls/FormsControls';
+import Input from '../Common/Forms-controls/InputControls';
 
 export type TextFormType = {
   nameForm: string
@@ -18,7 +19,8 @@ const TextForm: React.FC<TextFormType & InjectedFormProps<{}, TextFormType>> = (
         <br/>
         <Field type="text"
                name={nameForm}
-               component={Textarea}
+               // component={Textarea}
+               component={Input}
                placeholder={placeholder}
                validate={[required, maxLength10]}/>
         <br/>

@@ -6,7 +6,7 @@ import {
   getFollowThunkCreator,
   getUnFollowThunkCreator,
   requestUsers,
-  InitialStateType,
+  UsersStateType,
   toggleIsFollowing,
   unfollow
 } from '../../redux/users-reducer';
@@ -29,27 +29,11 @@ class UsersClass extends React.Component<UsersType> {//конструктор и
   componentDidMount() {
     this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
 
-
-    // this.props.toggleIsLoading(true)// включаем спинер при загрузке
-    // usersAPI.getUsers(this.props.currentPage, this.props.pageSize)//делаем на сервер запрос о данных
-    //     .then(data => {//делаем с данными что-то
-    //       // console.log(response.data.items)
-    //       this.props.setUsers(data.items)
-    //       this.props.setTotalUsersCount(data.totalCount)
-    //       this.props.toggleIsLoading(false)// выключаем спинер при загрузке
-    //     })
   }
 
   onPageChanged = (page: number) => {
     this.props.getUsersThunkCreator(page, this.props.pageSize)
-    // this.props.currentPageChoice(page)
-    // this.props.toggleIsLoading(true)
-    // //делаем на сервер запрос о данных
-    // usersAPI.getUsers(page, this.props.pageSize).then(data => {//делаем с данными что-то
-    //   this.props.setUsers(data.items)
-    //   this.props.toggleIsLoading(false)
-    //
-    // })
+
   }
 
   render() {
@@ -72,7 +56,7 @@ class UsersClass extends React.Component<UsersType> {//конструктор и
 }
 
 
-const mapStateToProps = (state: AppStateType): InitialStateType => {//принимает глобальный стэйт целиком
+const mapStateToProps = (state: AppStateType): UsersStateType => {//принимает глобальный стэйт целиком
   return {
     users:getUsersSuperSelector(state) ,
     // users:getUsers(state) ,

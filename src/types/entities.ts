@@ -16,6 +16,7 @@ import {
 } from '../redux/users-reducer';
 import {setAuthUserData} from '../redux/auth-reducer';
 import {initializedSuccess} from '../redux/app-reducer';
+import {UserDataType} from '../api/api';
 
 export type StoreType = {
   _state: StateType
@@ -69,7 +70,7 @@ export type UsersApiPropsType = {
   uniqueUrlName: any
 }
 export type UsersType = {
-  users: Array<UsersApiPropsType>
+  users: Array<UserDataType>
   pageSize: number
   totalUsersCount: number
   currentPage: number

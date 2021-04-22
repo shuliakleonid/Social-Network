@@ -1,12 +1,10 @@
 import React, {FunctionComponent} from 'react';
-import style from './Users.module.css';
-import user from '../../assets/icons/user.png';
-import {UsersApiPropsType} from './UsersFunction';
-import {v1} from 'uuid';
-import {NavLink} from 'react-router-dom';
+import {UserDataType} from '../../api/api';
+import Paginator from './Paginator';
+import User from './User';
 
 type UsersTypeProps = {
-  users: Array<UsersApiPropsType>
+  users: Array<UserDataType>
   pageSize: number
   totalUsersCount: number
   currentPage: number
@@ -28,51 +26,54 @@ const Users: FunctionComponent<UsersTypeProps> = (props) => {
 
   return (
       <div>
-        <div>
-          {
-            pages.map(el => <span key={v1()} onClick={() => props.onPageChanged(el)}
-                                  className={props.currentPage === el
-                                      ? style.pageNumber
-                                      : ''}>{el}--</span>)
-          }
-        </div>
+        <Paginator/>
+        {props.users.map(el => <User key={el.id} user={el} followingInProgress={props.followingInProgress}/>)}
+        {/*<div>*/}
+        {/*  {*/}
+        {/*    pages.map(el => <span key={v1()} onClick={() => props.onPageChanged(el)}*/}
+        {/*                          className={props.currentPage === el*/}
+        {/*                              ? style.pageNumber*/}
+        {/*                              : ''}>{el}--</span>)*/}
+        {/*  }*/}
+        {/*</div>*/}
         {
-          props.users.map(el => <div key={el.id}>
-            <span>
-              <div>
-                <NavLink to={`/profile/${el.id}`}>
-                <img alt='img' src={el.photos.small != null ? el.photos.small : user}
-                     className={style.photoUser}/></NavLink>
-              </div>
-              <div>
-                {el.followed
-                    ? <button
-
-                        disabled={props.followingInProgress.some(id => id === el.id)}//если в массиве есть id пользователя то возвращает true
-                        onClick={() => props.getUnFollowThunkCreator(el.id)                        //   //дизайблем кнопку пока не подгрузились данные
-
-                        }>Unfollow</button>
-                    : <button disabled={props.followingInProgress.some(id => id === el.id)}
-                              onClick={() => {
-                                return props.getFollowThunkCreator(el.id)
-                              }
-                              }>Follow</button>}
-                </div>
-              </span>
-            <span>
-              <span>
-                <div>{el.name}</div>
-                 <div>{el.status}</div>
-              </span>
-              <span>
-                <div>{'el.location.country '}</div>
-                <div>{'el.location.city'}</div>
-              </span>
-            </span>
-          </div>)
+          //     <div key={el.id}>
+          //   <span>
+          //     <div>
+          //       <NavLink to={`/profile/${el.id}`}>
+          //       <img alt='img' src={el.photos.small != null ? el.photos.small : user}
+          //            className={style.photoUser}/></NavLink>
+          //     </div>
+          //     <div>
+          //       {el.followed
+          //           ? <button
+          //
+          //               disabled={props.followingInProgress.some(id => id === el.id)}//если в массиве есть id пользователя то возвращает true
+          //               onClick={() => props.getUnFollowThunkCreator(el.id)                        //   //дизайблем кнопку пока не подгрузились данные
+          //
+          //               }>Unfollow</button>
+          //           : <button disabled={props.followingInProgress.some(id => id === el.id)}
+          //                     onClick={() => {
+          //                       return props.getFollowThunkCreator(el.id)
+          //                     }
+          //                     }>Follow</button>}
+          //       </div>
+          //
+          //     </span>
+          //   <span>
+          //     <span>
+          //       <div>{el.name}</div>
+          //        <div>{el.status}</div>
+          //     </span>
+          //     <span>
+          //       <div>{'el.location.country '}</div>
+          //       <div>{'el.location.city'}</div>
+          //     </span>
+          //   </span>
+          // </div>)
         }
       </div>
-  );
-};
+  )
+}
 
 export default Users;

@@ -10,6 +10,8 @@ import {
 } from '../constant';
 import {UserDataType, usersAPI} from '../api/api';
 import {AppThunk} from './redux-store';
+import {Dispatch} from 'redux';
+import {updateObjectInArray} from '../utils/objects-helper/objects-helper';
 
 type LocationType = {
   city: string
@@ -23,7 +25,7 @@ export type UserType = {
   status: string
   location: LocationType
 }
-export type InitialStateType = {
+export type UsersStateType = {
   users: Array<UserDataType>
   pageSize: number
   totalUsersCount: number
@@ -32,7 +34,7 @@ export type InitialStateType = {
   followingInProgress: Array<number>
 }
 
-const initialState: InitialStateType = {
+ const initialState: UsersStateType = {
   users: [],
   pageSize: 10,
   totalUsersCount: 0,
@@ -41,14 +43,16 @@ const initialState: InitialStateType = {
   followingInProgress: []
 }
 
-export const usersReducer = (state = initialState, action: ActionType): InitialStateType => {
+export const usersReducer = (state = initialState, action: ActionType): UsersStateType => {
   switch (action.type) {
     case SET_USERS:
       return {...state, users: action.users}
     case FOLLOW:
-      return {...state, users: state.users.map(el => el.id === action.userID ? {...el, followed: true} : {...el})}
+      // return {...state, users: state.users.map(el => el.id === action.userID ? {...el, followed: true} : {...el})}
+      return {...state, users: updateObjectInArray(state.users, action.userID, 'id', {followed: true})}
     case UNFOLLOW:
-      return {...state, users: state.users.map(el => el.id === action.userID ? {...el, followed: false} : {...el})}
+      // return {...state, users: state.users.map(el => el.id === action.userID ? {...el, followed: false} : {...el})}
+      return {...state, users: updateObjectInArray(state.users, action.userID, 'id', {followed: false})}
     case SET_CURRENT_PAGE:
       return {...state, currentPage: action.page}
     case SET_TOTAL_USERS_COUNT:
@@ -78,6 +82,21 @@ export const toggleIsFollowing = (userId: number, isFetching: boolean) => ({
 }) as const
 export const setTotalUsersCount = (totalCount: number) => ({type: SET_TOTAL_USERS_COUNT, count: totalCount}) as const
 
+
+const followUnfollowFlow = async (dispatch: Dispatch<ActionType>, id: number, apiMethod: any, actionCreator: any) => {
+  try {
+    dispatch(toggleIsFollowing(id, true))
+    const response = await apiMethod(id)
+    if (response.resultCode === 0) {
+      dispatch(actionCreator(id))
+    }
+    dispatch(toggleIsFollowing(id, false))
+  } catch (e) {
+    console.warn(e)
+  }
+}
+
+
 export const requestUsers = (page: number, pageSize: number): AppThunk =>
     async (dispatch) => {
       try {
@@ -94,29 +113,13 @@ export const requestUsers = (page: number, pageSize: number): AppThunk =>
 
 export const getFollowThunkCreator = (id: number): AppThunk =>
     async (dispatch) => {
-      try {
-        dispatch(toggleIsFollowing(id, true))
-        const response = await usersAPI.getFollow(id)
-        if (response.resultCode === 0) {
-          dispatch(follow(id))
-        }
-        dispatch(toggleIsFollowing(id, false))
-      } catch (e) {
-        console.warn(e)
-      }
+      const apiMethod = usersAPI.getFollow.bind(usersAPI)
+      await followUnfollowFlow(dispatch, id, apiMethod, follow)
     }
 
-export const getUnFollowThunkCreator = (id: number):AppThunk =>
-  async (dispatch) => {
-  try {
-    dispatch(toggleIsFollowing(id, true))
-    const response = await  usersAPI.getUnfollow(id)
-    if (response.resultCode === 0) {
-      dispatch(follow(id))
+export const getUnFollowThunkCreator = (id: number): AppThunk =>
+    async (dispatch) => {
+      const apiMethod = usersAPI.getUnfollow.bind(usersAPI)
+      await followUnfollowFlow(dispatch, id, apiMethod, unfollow)
     }
-    dispatch(toggleIsFollowing(id, false))
-  }catch (e) {
-    console.warn(e)
-  }
-  }
 
