@@ -1,2 +1,2 @@
 # Social-Network
-My progect Social Network
+My project Social Network
