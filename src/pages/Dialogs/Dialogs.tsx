@@ -3,7 +3,7 @@ import style from './Dialogs.module.css'
 import DialogItem from './DialogItem/DialogItem';
 import DialogItemMessage from './DialogMessage/DialogMesssage';
 import {DialogsPageType} from '../../types/entities';
-import TextForm, {TextFormType} from '../Text-form/TextForm';
+import TextForm, {TextFormType} from '../../Components/Text-form/TextForm';
 import {reduxForm} from 'redux-form';
 
 export type DialogsPropsType = {

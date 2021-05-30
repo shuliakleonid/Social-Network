@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from 'react';
 import {UserDataType} from '../../api/api';
-import Paginator from './Paginator';
+import Paginator from '../../Components/paginator/Paginator';
 import User from './User';
 
 type UsersTypeProps = {
@@ -26,7 +26,7 @@ const Users: FunctionComponent<UsersTypeProps> = (props) => {
 
   return (
       <div>
-        <Paginator/>
+        <Paginator portionSize={10}/>
         {props.users.map(el => <User key={el.id} user={el} followingInProgress={props.followingInProgress}/>)}
         {/*<div>*/}
         {/*  {*/}

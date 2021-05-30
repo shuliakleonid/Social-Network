@@ -23,7 +23,7 @@ export type AppStateType = ReturnType<typeof rootReducer>
 // export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 export type AppThunk = ThunkAction<void, AppStateType, unknown, ActionType>
 //@ts-ignore
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose// подключаем редакс тулз
 export const store = createStore(rootReducer, composeEnhancers((applyMiddleware(thunkMiddleware))))
 // @ts-ignore
 window.store = store; // for dev

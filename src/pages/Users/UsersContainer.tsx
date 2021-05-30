@@ -12,7 +12,7 @@ import {
 } from '../../redux/users-reducer';
 import Users from './Users';
 import {UsersType} from '../../types/entities';
-import PreLoader from '../Common/PreLoader/PreLoader';
+import PreLoader from '../../Components/Common/PreLoader/PreLoader';
 import {AppStateType} from '../../redux/redux-store';
 import {
   getCurrentPage,

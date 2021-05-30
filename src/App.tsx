@@ -1,21 +1,21 @@
 import React, {useEffect} from 'react';
 import style from './App.module.css';
-import Navigation from './Components/Navigation/Navigation';
-import Footer from './Components/Footer/Footer';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import News from './Components/News/News';
-import Music from './Components/Music/Music';
-import Settings from './Components/Settings/Settings';
-import DialogContainer from './Components/Dialogs/DialogsContainer';
-import UsersContainer from './Components/Users/UsersContainer';
-import ProfileContainer from './Components/Profile/ProfileContainer';
-import HeaderContainer from './Components/Header/HeaderContainer';
-import Login from './Components/Login/Login';
+import News from './pages/News/News';
+import Music from './pages/Music/Music';
+import Settings from './pages/Settings/Settings';
+import DialogContainer from './pages/Dialogs/DialogsContainer';
+import UsersContainer from './pages/Users/UsersContainer';
+import ProfileContainer from './pages/Profile/ProfileContainer';
 import {useDispatch, useSelector} from 'react-redux';
 import {ROUTES} from './constants/constants';
 import {initializeApp} from './redux/app-reducer';
-import PreLoader from './Components/Common/PreLoader/PreLoader';
 import {AppStateType} from './redux/redux-store';
+import Navigation from './Components/Navigation/Navigation';
+import HeaderContainer from './Components/Header/HeaderContainer';
+import Footer from './Components/Footer/Footer';
+import Login from './Components/Login/Login';
+import PreLoader from './Components/Common/PreLoader/PreLoader';
 
 const App = () => {
 

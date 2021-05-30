@@ -1,10 +1,10 @@
 import React from 'react';
 import style from './SectionMain.module.css';
 import Posts from './My_Posts/Post';
-import PreLoader from '../Common/PreLoader/PreLoader';
+import PreLoader from '../../Components/Common/PreLoader/PreLoader';
 import {ProfilePagesType} from '../../types/entities';
 import {ProfileStatus} from './ProfileStatus/ProfileStatus';
-import TextForm, {TextFormType} from '../Text-form/TextForm';
+import TextForm, {TextFormType} from '../../Components/Text-form/TextForm';
 import {reduxForm} from 'redux-form';
 
 type ProfilePropsType = {
