@@ -1,12 +1,8 @@
-import React, {useEffect} from 'react';
+import React, {useEffect,Suspense} from 'react';
 import style from './App.module.css';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import News from './pages/News/News';
 import Music from './pages/Music/Music';
 import Settings from './pages/Settings/Settings';
-import DialogContainer from './pages/Dialogs/DialogsContainer';
-import UsersContainer from './pages/Users/UsersContainer';
-import ProfileContainer from './pages/Profile/ProfileContainer';
 import {useDispatch, useSelector} from 'react-redux';
 import {ROUTES} from './constants/constants';
 import {initializeApp} from './redux/app-reducer';
@@ -16,6 +12,12 @@ import HeaderContainer from './Components/Header/HeaderContainer';
 import Footer from './Components/Footer/Footer';
 import Login from './Components/Login/Login';
 import PreLoader from './Components/Common/PreLoader/PreLoader';
+
+const DialogContainer = React.lazy(()=> import('./pages/Dialogs/DialogsContainer'));
+const ProfileContainer = React.lazy(()=> import('./pages/Profile/ProfileContainer'));
+const UsersContainer = React.lazy(()=> import('./pages/Users/UsersContainer'));
+const News = React.lazy(()=> import('./pages/News/News'));
+
 
 const App = () => {
 
@@ -36,6 +38,7 @@ const App = () => {
           <main className={style.main}>
             <Navigation/>
             <div className={style.content}>
+              <Suspense fallback={<h1>Loading...</h1>}>
               <Switch>
                 <Route path={ROUTES.PROFILE} render={() => <ProfileContainer/>}/>
                 <Route path={ROUTES.DIALOGS} render={() => <DialogContainer/>}/>
@@ -45,6 +48,7 @@ const App = () => {
                 <Route path={ROUTES.SETTINGS} render={() => <Settings/>}/>
                 <Route path={ROUTES.LOGIN} render={() => <Login/>}/>
               </Switch>
+              </Suspense>
             </div>
           </main>
           <Footer/>
