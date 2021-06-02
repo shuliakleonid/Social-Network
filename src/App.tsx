@@ -1,6 +1,6 @@
 import React, {useEffect,Suspense} from 'react';
 import style from './App.module.css';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {BrowserRouter, HashRouter, Route, Switch} from 'react-router-dom';
 import Music from './pages/Music/Music';
 import Settings from './pages/Settings/Settings';
 import {useDispatch, useSelector} from 'react-redux';
@@ -32,7 +32,7 @@ const App = () => {
     return <PreLoader/>
   }
   return (
-      <BrowserRouter>
+      <HashRouter>
         <div className={style.wrapper}>
           <HeaderContainer/>
           <main className={style.main}>
@@ -53,7 +53,7 @@ const App = () => {
           </main>
           <Footer/>
         </div>
-      </BrowserRouter>
+      </HashRouter>
   );
 }
 
