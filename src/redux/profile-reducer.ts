@@ -1,5 +1,12 @@
 import {ActionType, PostType, ProfileAPIType, ProfilePagesType} from '../types/entities';
-import {ADD_POST, DELETE_POST, SET_UPDATE_USER_STATUS, SET_USER_STATUS, SET_USERS_PROFILE} from '../constant';
+import {
+  ADD_POST,
+  DELETE_POST,
+  SAVE_USER_PHOTO,
+  SET_UPDATE_USER_STATUS,
+  SET_USER_STATUS,
+  SET_USERS_PROFILE
+} from '../constant';
 import {profileAPI, usersAPI} from '../api/api';
 import {Dispatch} from 'redux';
 
@@ -57,6 +64,8 @@ export const profileReducer = (state = initialState, action: ActionType): Profil
       return {...state, status: action.status}
     case DELETE_POST:
       return {...state, posts: state.posts.filter(post => post.id !== action.id)}
+    case SAVE_USER_PHOTO:
+      return {...state, profile: {...state.profile, photos: action.photos}}
     default:
       return state
 
@@ -71,6 +80,8 @@ export const deletePost = (id: number) => ({type: DELETE_POST, id}) as const
 export const setUserProfile = (profile: ProfileAPIType) => ({type: SET_USERS_PROFILE, profile}) as const
 export const setUserStatus = (status: string) => ({type: SET_USER_STATUS, status}) as const
 export const setUpdateStatus = (status: string) => ({type: SET_UPDATE_USER_STATUS, status}) as const
+export const savePhotoSuccess = (photos: {small:string,large:string}) => ({type: SAVE_USER_PHOTO, photos}) as const
+
 
 export const getUserProfile = (userId: string) => (dispatch: Dispatch<ActionType>) => {
   usersAPI.getProfile(userId)//делаем на сервер запрос о данных
@@ -93,6 +104,14 @@ export const updateStatus = (status: string) => (dispatch: Dispatch<ActionType>)
         console.log(data.resultCode, 'data.resultCode')
         if (data.resultCode === 0) {
           dispatch(setUpdateStatus(status))
+        }
+      })
+}
+export const savePhoto = (photo: any) => (dispatch: Dispatch<ActionType>) => {
+  profileAPI.savePhoto(photo)
+      .then(data => {
+        if (data.resultCode === 0) {
+          dispatch(savePhotoSuccess(data.data.photos))
         }
       })
 }
