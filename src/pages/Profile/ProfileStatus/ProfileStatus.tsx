@@ -5,7 +5,6 @@ type ProfileStatusPropsType = {
   updateStatus: (text: string) => void
 }
 
-
 export const ProfileStatus = (props: ProfileStatusPropsType) => {
   const [status, setStatus] = useState<string>(props.status)
   const [valueInput, setValueInput] = useState<string>('')
@@ -28,9 +27,6 @@ export const ProfileStatus = (props: ProfileStatusPropsType) => {
   const getEditMode = () => {
     setEditMode(!editMode)
   }
-
-
-
 
   return (
       <div>

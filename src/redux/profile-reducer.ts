@@ -24,13 +24,13 @@ const initialState: ProfilePagesType = {
     aboutMe: 'я круто чувак 1001%',
     contacts: {
       facebook: 'facebook.com',
-      website: null,
+      website: 'My site',
       vk: 'vk.com/dimych',
       twitter: 'https://twitter.com/@sdf',
       instagram: 'instagra.com/sds',
-      youtube: null,
+      youtube: 'My youtube',
       github: 'github.com',
-      mainLink: null
+      mainLink: 'My mail'
     },
     lookingForAJob: true,
     lookingForAJobDescription: 'не ищу, а дурачусь',

@@ -89,16 +89,7 @@ export type UsersType = {
 }
 export type ProfileAPIType = {
   aboutMe: string
-  contacts: {
-    facebook: string
-    website: null
-    vk: string
-    twitter: string
-    instagram: string
-    youtube: null
-    github: string
-    mainLink: null
-  },
+  contacts: ContactsType,
   lookingForAJob: true
   lookingForAJobDescription: string
   fullName: string
@@ -107,6 +98,17 @@ export type ProfileAPIType = {
     small: string
     large: string
   }
+}
+
+export type ContactsType = {
+  facebook: string
+  website: string
+  vk: string
+  twitter: string
+  instagram: string
+  youtube: string
+  github: string
+  mainLink: string
 }
 export type ActionType =
       ReturnType<typeof buttonAddPost>
