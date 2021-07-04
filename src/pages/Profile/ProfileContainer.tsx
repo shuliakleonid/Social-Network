@@ -2,10 +2,10 @@ import React from 'react';
 import {ProfilePagesType} from '../../types/entities';
 import {buttonAddPost, getUserProfile, getUserStatus, savePhoto, updateStatus} from '../../redux/profile-reducer';
 import {connect} from 'react-redux';
-import Profile from './Profile';
 import {RouteComponentProps, withRouter} from 'react-router';
 import {AppStateType} from '../../redux/redux-store';
 import {compose} from 'redux';
+import {Profile} from './Profile';
 
 type MatchStateDispatchToProps = {
   profilePage: ProfilePagesType

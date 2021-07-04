@@ -10,9 +10,9 @@ export const ProfileStatus = (props: ProfileStatusPropsType) => {
   const [valueInput, setValueInput] = useState<string>('')
   const [editMode, setEditMode] = useState<boolean>(true)
 
-  useEffect(()=>{
-    setStatus(props.status )
-  },[props.status])
+  useEffect(() => {
+    setStatus(props.status)
+  }, [props.status])
 
   const changeValue = (e: ChangeEvent<HTMLInputElement>) => {
     setValueInput(e.currentTarget.value)
@@ -33,11 +33,11 @@ export const ProfileStatus = (props: ProfileStatusPropsType) => {
         {
           editMode
               ? <div>
-                <p onDoubleClick={getEditMode}>{status}</p>
-              </div>
+                  <p onDoubleClick={getEditMode}>{status}</p>
+                </div>
               : <div>
-                <input value={valueInput} type="text" onChange={changeValue} onBlur={changeStatus}/>
-              </div>
+                  <input value={valueInput} type="text" onChange={changeValue} onBlur={changeStatus}/>
+                </div>
         }
       </div>
   );

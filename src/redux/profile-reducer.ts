@@ -93,7 +93,6 @@ export const getUserProfile = (userId: string) => (dispatch: Dispatch<ActionType
 export const getUserStatus = (userId: string) => (dispatch: Dispatch<ActionType>) => {
   profileAPI.getStatus(userId)//делаем на сервер запрос о данных
       .then(data => {//делаем с данными что-то
-        debugger
         dispatch(setUserStatus(data))
       })
 }
