@@ -32,7 +32,6 @@ export const Profile = React.memo((props: ProfilePropsType) => {
         message={i.message}
         like={i.likesCount}
         id={i.id}
-
     />
   })
   if (!props.profilePage.profile) {
