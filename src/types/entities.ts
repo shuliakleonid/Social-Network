@@ -1,6 +1,6 @@
 import {addMessageActionCreator} from '../redux/dialogs-reducer';
 import {
-  buttonAddPost, deletePost, savePhotoSuccess,
+  buttonAddPost, deletePost, savePhotoSuccess, saveProfile,
   setUpdateStatus,
   setUserProfile,
   setUserStatus,
@@ -127,3 +127,4 @@ export type ActionType =
     | ReturnType<typeof initializedSuccess>
     | ReturnType<typeof deletePost>
     | ReturnType<typeof savePhotoSuccess>
+    | ReturnType<typeof saveProfile>

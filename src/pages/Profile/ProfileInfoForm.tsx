@@ -1,6 +1,8 @@
 import React, {FC} from 'react';
 import {Field, Form, Formik,} from 'formik';
 import {ProfileAPIType} from '../../types/entities';
+import {useDispatch} from 'react-redux';
+import {saveProfile, saveProfileUser} from '../../redux/profile-reducer';
 
 interface MyFormValues {
   firstName: string;
@@ -11,7 +13,8 @@ type ProfileInfoFormType = {
   profile: ProfileAPIType
 }
 export const ProfileInfoForm: FC<ProfileInfoFormType> = ({profile}) => {
-  const initialValues: MyFormValues = {firstName: '', picked: ''};
+  const initialValues: ProfileAPIType = profile;
+  const dispatch = useDispatch()
   return (
       <div>
         <h1>My Example</h1>
@@ -20,6 +23,7 @@ export const ProfileInfoForm: FC<ProfileInfoFormType> = ({profile}) => {
             onSubmit={(values, actions) => {
               console.log({values, actions});
               alert(JSON.stringify(values, null, 2));
+              dispatch(saveProfileUser(values))
               actions.setSubmitting(false);
             }}
         >
@@ -40,11 +44,10 @@ export const ProfileInfoForm: FC<ProfileInfoFormType> = ({profile}) => {
             <label htmlFor="skills">My professional skills</label>
             <Field id="skills" name="skills" placeholder="My skills" type='te'/>
             <div>
-              <label htmlFor="About me">About me</label>
-              <Field id="About me" name="About me" placeholder="About me"/>
+              <label htmlFor="aboutMe">About me</label>
+              <Field id="aboutMe" name="aboutMe" placeholder="About me"/>
             </div>
             <button type="submit">Submit</button>
-
           </Form>
         </Formik>
       </div>
